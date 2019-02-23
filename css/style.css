@@ -396,12 +396,14 @@ body.offcanvas {
   position: relative; }
 
 .colorlib-heading {
-  font-size: 18px;
-  margin-bottom: 4em;
-  font-weight: 500;
+  /*font-size: 18px;*/
+  font-size: 25px;
+  margin-bottom: 0.7em;
+  /*font-weight: 500*/
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 5px;
-  line-height: 1.8; }
+  line-height: 1.2; }
   .colorlib-heading span {
     display: block; }
   @media screen and (max-width: 768px) {
@@ -409,13 +411,14 @@ body.offcanvas {
       margin-bottom: 1em; } }
 
 .heading-meta {
-  margin-bottom: 15px;
+  margin-top: 1.3em;
+  /*margin-bottom: -5px;*/
   display: block;
-  font-size: 10px;
+  font-size: 15px;
   text-transform: uppercase;
   color: #999999;
-  font-weight: 500;
-  letter-spacing: 5px; }
+  font-weight: 600;
+  letter-spacing: 3px; }
 
 .about-img {
   width: 75%;
