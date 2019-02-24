@@ -1,0 +1,15 @@
+
+  .colorlib-nav-toggle.active i::before, .colorlib-nav-toggle.active i::after {
+    background: #fff; }
+  .colorlib-nav-toggle.dark.active i::before, .colorlib-nav-toggle.dark.active i::after {
+    background: #fff; }
+  .colorlib-nav-toggle i {
+    color: #fff;
+    background: #fff; }
+    .colorlib-nav-toggle i::before, .colorlib-nav-toggle i::after {
+      background: #fff; }
+  .colorlib-nav-toggle.dark i {
+    color: #fff;
+    background: #fff; }
+    .colorlib-nav-toggle.dark i::before, .colorlib-nav-toggle.dark i::after {
+      background: #fff; }
