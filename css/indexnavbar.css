@@ -13,3 +13,10 @@
     background: #fff; }
     .colorlib-nav-toggle.dark i::before, .colorlib-nav-toggle.dark i::after {
       background: #fff; }
+
+      .colorlib-blog,
+      .colorlib-work,
+      .colorlib-about,
+      .colorlib-services,
+      .colorlib-contact {
+        padding-top: 1em; }
