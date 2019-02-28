@@ -18,13 +18,18 @@
 }
 
 @media screen and (max-width: 768px) {
-
+  .about-img .about-img2 {
+    position: absolute;
+    right: -70px;
+  }
   .about-left {
     padding-left: 0px;
     padding-right: 15px;
+    width: 90%;
   }
 
   .about-right {
     padding-right: 15px;
+    width: 100%;
   }
 }
