@@ -1,3 +1,19 @@
+.colorlib-nav-toggle.active i::before, .colorlib-nav-toggle.active i::after {
+  background: #c95942; }
+.colorlib-nav-toggle.dark.active i::before, .colorlib-nav-toggle.dark.active i::after {
+  background: #c95942; }
+.colorlib-nav-toggle i {
+  color: #c95942;
+  background: #c95942; }
+  .colorlib-nav-toggle i::before, .colorlib-nav-toggle i::after {
+    background: #c95942; }
+.colorlib-nav-toggle.dark i {
+  color: #c95942;
+  background: #c95942; }
+  .colorlib-nav-toggle.dark i::before, .colorlib-nav-toggle.dark i::after {
+    background: #c95942; }
+
+
 .colorlib-about {
   padding-top: 1em;
 }
