@@ -1,18 +1,18 @@
 
   .colorlib-nav-toggle.active i::before, .colorlib-nav-toggle.active i::after {
-    background: #fff; }
+    background: #F75940; }
   .colorlib-nav-toggle.dark.active i::before, .colorlib-nav-toggle.dark.active i::after {
-    background: #fff; }
+    background: #F75940; }
   .colorlib-nav-toggle i {
-    color: #fff;
-    background: #fff; }
+    color: #F75940;
+    background: #F75940; }
     .colorlib-nav-toggle i::before, .colorlib-nav-toggle i::after {
-      background: #fff; }
+      background: #F75940; }
   .colorlib-nav-toggle.dark i {
-    color: #fff;
-    background: #fff; }
+    color: #F75940;
+    background: #F75940; }
     .colorlib-nav-toggle.dark i::before, .colorlib-nav-toggle.dark i::after {
-      background: #fff; }
+      background: #F75940; }
 
       .colorlib-blog,
       .colorlib-work,
