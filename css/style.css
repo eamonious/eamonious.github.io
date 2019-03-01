@@ -386,10 +386,18 @@ body.offcanvas {
     .colorlib-blog,
     .colorlib-work,
     .colorlib-about,
-    .colorlib-services,
-    .colorlib-contact {
+    .colorlib-services {
       padding-top: 5em;
       /*padding-bottom: 8em;*/ } }
+
+/* Layout for Contact Page */
+.colorlib-contact .col-md-push-6 {
+  top: -40px; }
+  @media screen and (max-width: 992px) {
+    .contact-body {
+      padding-top: 40px; }
+    .colorlib-contact {
+      padding-bottom: 4em; } }
 
 .about-img,
 .about-img-2 {
@@ -693,11 +701,18 @@ body.offcanvas {
   text-decoration: underline; }
 
 .colorlib-lead {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.5; }
 
 #get-in-touch {
-  padding: 2em; }
+  padding: 2em;
+  padding-top: 4em;
+}
+
+#get-in-touch h3 {
+  margin-bottom: 15px;
+}
+
   #get-in-touch .btn-learn {
     padding: 15px 30px !important;
     font-size: 13px;
@@ -781,6 +796,7 @@ body.offcanvas {
           font-size: 40px; } }
   .colorlib-feature .colorlib-text {
     padding-left: 120px;
+    padding-top: 7px;
     width: 100%; }
     .colorlib-feature .colorlib-text h2, .colorlib-feature .colorlib-text h3 {
       margin: 0;
@@ -799,7 +815,7 @@ body.offcanvas {
     font-size: 40px; }
     @media screen and (max-width: 1200px) {
       .colorlib-feature.colorlib-feature-sm .colorlib-icon i {
-        font-size: 28px; } }
+        font-size: 40px; } }
 
 .colorlib-feature-lg .colorlib-text h2, .colorlib-feature-lg .colorlib-text h3 {
   margin: 0;
@@ -985,7 +1001,7 @@ body.offcanvas {
     border-color: #F75940; }
 
 #message {
-  height: 130px; }
+  height: 230px; }
 
 .colorlib-nav-toggle {
   cursor: pointer;
