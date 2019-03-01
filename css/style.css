@@ -398,6 +398,9 @@ body.offcanvas {
       padding-top: 40px; }
     .colorlib-contact {
       padding-bottom: 4em; } }
+    .colorlib-contact .col-md-5 {
+      z-index: 1;
+    }
 
 .about-img,
 .about-img-2 {
