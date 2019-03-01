@@ -24,6 +24,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* SECTION TWO - BLACK */
 .icon-times:before {
   content: "\e930";
 }
@@ -42,10 +43,10 @@
 .icon-divide:before {
   content: "\e935";
 }
-.icon-chevron-right:before {
+.icon-greater-than:before {
   content: "\e936";
 }
-.icon-chevron-left:before {
+.icon-less-than:before {
   content: "\e937";
 }
 .icon-arrow-right-thick:before {
@@ -363,6 +364,9 @@
 .icon-at:before {
   content: "\e9a0";
 }
+
+/* SECTION TWO - OUTLINES */
+
 .icon-times-outline:before {
   content: "\e9a1";
 }
@@ -384,10 +388,10 @@
 .icon-divide-outline:before {
   content: "\e9a7";
 }
-.icon-chevron-right-outline:before {
+.icon-greater-than-outline:before {
   content: "\e9a8";
 }
-.icon-chevron-left-outline:before {
+.icon-less-than-outline:before {
   content: "\e9a9";
 }
 .icon-arrow-right-outline:before {
@@ -404,6 +408,12 @@
 }
 .icon-th-list-outline:before {
   content: "\e9ae";
+}
+.icon-spinner6:before {
+  content: "\e9af";
+}
+.icon-spinner7:before {
+  content: "\e9b0";
 }
 .icon-news2:before {
   content: "\e9b1";
@@ -444,7 +454,7 @@
 .icon-export-outline:before {
   content: "\e9bd";
 }
-.icon-cross:before {
+.icon-cloud-storage-outline:before {
   content: "\e9be";
 }
 .icon-wi-fi-outline:before {
@@ -948,6 +958,10 @@
 .icon-feather:before {
   content: "\ea65";
 }
+
+
+/* SECTION ONE  */
+
 .icon-eye2:before {
   content: "\e064";
 }
@@ -1248,6 +1262,10 @@
 .icon-mute:before {
   content: "\e0c7";
 }
+
+
+/* SECTION ONE - PART 2 */
+
 .icon-content-right:before {
   content: "\e100";
 }
@@ -1278,6 +1296,9 @@
 .icon-trash:before {
   content: "\e109";
 }
+
+/* SECTION ONE - PART THREE */
+
 .icon-expand2:before {
   content: "\e110";
 }
@@ -1308,6 +1329,10 @@
 .icon-delete:before {
   content: "\e119";
 }
+
+
+/* SECTION ONE - PART FOUR */
+
 .icon-menu5:before {
   content: "\e120";
 }
@@ -1338,6 +1363,9 @@
 .icon-ellipsis:before {
   content: "\e129";
 }
+
+/* SECTION TWO - PART ONE, OUTLINES */
+
 .icon-heart4:before {
   content: "\e900";
 }
@@ -1482,12 +1510,9 @@
 .icon-world:before {
   content: "\e92f";
 }
-.icon-spinner6:before {
-  content: "\e9af";
-}
-.icon-spinner7:before {
-  content: "\e9b0";
-}
+
+/*  FINAL NETWORKING SECTION  */
+
 .icon-amazon:before {
   content: "\eab7";
 }
@@ -1788,4 +1813,3 @@
 .icon-IcoMoon:before {
   content: "\eb1a";
 }
-
