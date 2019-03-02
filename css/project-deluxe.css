@@ -1,0 +1,35 @@
+
+/* PROJECT TITLE BANNERS TO OPAQUE */
+.project .desc {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.9); }
+  .project .desc h3 {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0); }
+  .project .desc span {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0); }
+
+
+/* DELUXE ADDITIONS */
+
+
+.project:hover .desc {
+  background: #f75940;
+  opacity: 0.95;
+  height: 30%; }
+  .project:hover .desc span {
+    font-weight: bold;
+    color: #000;
+     }
+
+#skills {
+  font-style: italic;
+  opacity: 0;
+  padding-top: 10px;
+}
+
+.project:hover #skills {
+  opacity: 1;
+  font-weight: normal;
+}
