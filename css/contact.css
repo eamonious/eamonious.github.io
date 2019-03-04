@@ -1,0 +1,18 @@
+
+.colorlib-contact .col-md-push-6 {
+  top: -40px;
+}
+
+@media screen and (max-width: 992px) {
+  .contact-body {
+    padding-top: 40px;
+  }
+  .colorlib-contact {
+    padding-bottom: 4em;
+  }
+/*  .colorlib-contact .col-md-push-6 {
+    top: 0px;
+  }
+  .colorlib-contact .col-md-7 {
+    top: 10px;*/
+  } }
