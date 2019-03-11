@@ -20,11 +20,12 @@ span.heading-meta {
 @media (min-width: 768px) {
   .row .col-md-12 {
     padding-left: 2.5em; }
-  .row .col-md-5 {
-    width: 80%; }
 }
 
-
+@media (min-width: 1200px) {
+  .row .col-md-5 {
+    width: 100%; }
+}
 
 
 /*  -----------------------------------------------  */
@@ -1061,17 +1062,21 @@ pre code {
 }
 @media (min-width: 768px) {
   .container {
-    width: 768px;
+    /*width: 768px;*/
+    width: 100%;
   }
 }
 @media (min-width: 992px) {
   .container {
-    width: 940px;
+    /*width: 940px; */
+    width: 100%;
   }
 }
-@media (min-width: 1200px) {
+
+/* This was 1200px before editing */
+@media (min-width: 1440px) {
   .container {
-    width: 1140px;
+    width: 1155px;
   }
 }
 .container-fluid {
@@ -1429,9 +1434,9 @@ pre code {
   .col-md-6 {
     width: 50%;
   }
-  .col-md-5 {
+/*  .col-md-5 {
     width: 41.66666667%;
-  }
+  } */
   .col-md-4 {
     width: 33.33333333%;
   }
@@ -11212,4 +11217,12 @@ div#notebook {
     display: block;
     page-break-inside: avoid;
   }
+}
+
+/* ------------------------- */
+
+@media (min-width: 1440px) {
+  #notebook-container {
+    float: left;
+    padding-right: 30px; }
 }
