@@ -4,7 +4,8 @@
 }
 
 .row .col-md-12 {
-  padding-left: 2.5em;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 h2.colorlib-heading {
@@ -17,9 +18,13 @@ span.heading-meta {
 }
 
 @media (min-width: 768px) {
+  .row .col-md-12 {
+    padding-left: 2.5em; }
   .row .col-md-5 {
     width: 80%; }
 }
+
+
 
 
 /*  -----------------------------------------------  */
