@@ -17,6 +17,10 @@ span.heading-meta {
   margin-top: 0;
 }
 
+div.input_prompt {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .row .col-md-12 {
     padding-left: 2.5em; }
@@ -11224,5 +11228,6 @@ div#notebook {
 @media (min-width: 1440px) {
   #notebook-container {
     float: left;
+    padding-left: 30px;
     padding-right: 30px; }
 }
