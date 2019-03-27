@@ -131,7 +131,1143 @@
 
 
 
+<div tabindex="-1" id="notebook" class="border-box-sizing">
+	<div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Import-Packages">Import Packages<a class="anchor-link" href="#Import-Packages">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[173]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Standard Packages</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="c1">#Web Request Package</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- SLIDE ONE -->
+<img src="../images/projects/reddit/Slide1.png" width="100%">
+<!-- SLIDE TWO -->
+<img src="../images/projects/reddit/Slide2.png" width="100%">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-Do-We-Build-a-Data-Set-of-Reddit-Comments?">How Do We Build a Data Set of Reddit Comments?<a class="anchor-link" href="#How-Do-We-Build-a-Data-Set-of-Reddit-Comments?">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Reddit, like many websites that produce large amounts of data that people may want to access, has what is called an API (Application Programming Interface).  Essentially this is a set of definitions, protocols, and tools that make data available in an accessible format for developers.  However, API's will typically have fairly strict limitations about the amount of data one can access, at least without paying a premium.</p>
+<p>Reddit's API is convenient in that it stores a lot of useful data and labeling relevant to each comment, user, etc. However, regular users of the API are limited to pulling 1000 comments at a time.  This in itself is not really an issue, but Reddit also limits users to only pulling the <em>most recent</em> 1000 comments.  This means we would have to wait for some indiscriminate amount of time between each pull, and given the volume of activity on these subreddits, it could be months or even years before we have a powerful dataset.</p>
+<p>Luckily, there is an open-source alternative to Reddit's API, called <strong><a href="https://github.com/pushshift/api">Pushshift API</a></strong>. In addition to providing useful extra features, the Pushshift API has two great advantages:</p>
+<ul>
+<li><strong>We can specify a date and time that we want to start a pull from</strong> (i.e.; pull the 1000 comments prior to time <em>t</em>). This allows us to create a loop backward over set intervals of time and pull as much distinct content as we want.</li>
+</ul>
+<ul>
+<li><strong>The data is returned as a list of dictionaries</strong>, which allows very easy conversion into Pandas.</li>
+</ul>
+<p>Let's access some Reddit comments and see what we get.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[174]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#The url given below calls for the most recent 1000 comments from threads on r/AskMen.</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.pushshift.io/reddit/search/comment/?subreddit=askmen&amp;sort=des&amp;size=1000&quot;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[175]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;User-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;eamonious&#39;</span><span class="p">}</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="n">res</span><span class="o">.</span><span class="n">status_code</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[175]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>200</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The 200 code indicates that we have successfully accessed the API.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[176]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">json</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">comments</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's look at the different data features available to us.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[177]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">comments</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[177]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index([&#39;author&#39;, &#39;author_cakeday&#39;, &#39;author_flair_background_color&#39;,
+		 &#39;author_flair_css_class&#39;, &#39;author_flair_richtext&#39;,
+		 &#39;author_flair_template_id&#39;, &#39;author_flair_text&#39;,
+		 &#39;author_flair_text_color&#39;, &#39;author_flair_type&#39;, &#39;author_fullname&#39;,
+		 &#39;author_patreon_flair&#39;, &#39;body&#39;, &#39;created_utc&#39;, &#39;distinguished&#39;,
+		 &#39;gildings&#39;, &#39;id&#39;, &#39;link_id&#39;, &#39;no_follow&#39;, &#39;parent_id&#39;, &#39;permalink&#39;,
+		 &#39;retrieved_on&#39;, &#39;score&#39;, &#39;send_replies&#39;, &#39;stickied&#39;, &#39;subreddit&#39;,
+		 &#39;subreddit_id&#39;],
+		dtype=&#39;object&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We are interested in the following features:</p>
+<ul>
+<li><strong>body</strong>: raw text of the comment</li>
+<li><strong>created_utc</strong>: timestamp of the comment</li>
+<li><strong>id</strong>: comment unique id</li>
+<li><strong>parent_id</strong>: unique id of <em>parent</em> comment (or <em>thread id</em> for first tier comments that reply directly to the thread). Because of the way this category is formatted, we will be able to identify which comments are first tier comments.</li>
+<li><strong>score</strong>: how many upvotes the comment has</li>
+<li><strong>subreddit</strong>: subreddit that the comment was in.  this will be the target variable.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[178]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Removes everything but the features we are interested in.</span>
+<span class="n">comments</span> <span class="o">=</span> <span class="n">comments</span><span class="p">[[</span><span class="s1">&#39;body&#39;</span><span class="p">,</span><span class="s1">&#39;created_utc&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;parent_id&#39;</span><span class="p">,</span><span class="s1">&#39;score&#39;</span><span class="p">,</span><span class="s1">&#39;subreddit&#39;</span><span class="p">]]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="AskMen-and-AskWomen:-Establishing-a-Proxy-for-Gender">AskMen and AskWomen: Establishing a Proxy for Gender<a class="anchor-link" href="#AskMen-and-AskWomen:-Establishing-a-Proxy-for-Gender">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For this project, we will be focusing on the subreddits <strong>r/AskMen</strong> and <strong>r/AskWomen</strong>.</p>
+<p>The way these two subreddits work is people make threads in which they ask a question looking for answers from only male or only female redditors, respectively.  So, <strong><em>in each subreddit, we can expect the first-tier comments (replying directly to the thread) to be almost exclusively from men or women, respectively</em></strong>: men answering questions in AskMen, and women answering questions in AskWomen. Thus, if we can grab first-tier comments only from each subreddit, we can get a large, balanced dataset of essentially gender-labeled Reddit comments, without any manual tagging.</p>
+<p>Accordingly, we want to collect only first-tier comments if possible, and exclude all lower-tier comment replies, which may be from either gender. <strong><em>We can filter for first-tier comments by using the 'parent_id' feature</em></strong>.  First tier comments all show the thread id as the parent, which begins with 't3<em>'. Lower-tier comments show the id of the parent comment, which uses a different prefix.  All we need to do is exclude anything that doesn't have the 't3</em>' prefix.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[179]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Drops all comments that are not in the first tier, i.e.; direct responses to the original post.</span>
+<span class="n">comments</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="k">if</span> <span class="s1">&#39;t3_&#39;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">comments</span> <span class="o">=</span> <span class="n">comments</span><span class="p">[</span><span class="n">comments</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Based on experimentation, it looks like the percentage of every 1000 comments that are first tier comments is approximately the same in AskMen and AskWomen (~30-35%), so the classes should remain roughly balanced.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">comments</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[15]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+	.dataframe tbody tr th:only-of-type {
+			vertical-align: middle;
+	}
+
+	.dataframe tbody tr th {
+			vertical-align: top;
+	}
+
+	.dataframe thead th {
+			text-align: right;
+	}
+</style>
+<table border="1" class="dataframe">
+<thead>
+	<tr style="text-align: right;">
+		<th></th>
+		<th>body</th>
+		<th>created_utc</th>
+		<th>id</th>
+		<th>parent_id</th>
+		<th>score</th>
+		<th>subreddit</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<th>0</th>
+		<td>I was 23 but I went with my ~29 year old cowor...</td>
+		<td>1545243578</td>
+		<td>ec4lbi4</td>
+		<td>t3_a7oy9v</td>
+		<td>1</td>
+		<td>AskMen</td>
+	</tr>
+	<tr>
+		<th>1</th>
+		<td>Portland, OR.\r\r\r\n\r\r\r\nThe city itself i...</td>
+		<td>1545243546</td>
+		<td>ec4la0n</td>
+		<td>t3_a7mkui</td>
+		<td>1</td>
+		<td>AskMen</td>
+	</tr>
+	<tr>
+		<th>2</th>
+		<td>nope.    "the cats goodbye"      watch how a c...</td>
+		<td>1545243536</td>
+		<td>ec4l9lm</td>
+		<td>t3_a7fe60</td>
+		<td>1</td>
+		<td>AskMen</td>
+	</tr>
+	<tr>
+		<th>3</th>
+		<td>Drunk as fuck me during an unintended one nigh...</td>
+		<td>1545243524</td>
+		<td>ec4l90i</td>
+		<td>t3_a79zu9</td>
+		<td>1</td>
+		<td>AskMen</td>
+	</tr>
+	<tr>
+		<th>4</th>
+		<td>There was this one time when I went over one o...</td>
+		<td>1545243449</td>
+		<td>ec4l5g6</td>
+		<td>t3_a7kmvc</td>
+		<td>1</td>
+		<td>AskMen</td>
+	</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can see we have the comment text, the timestamp (we'll discuss the format in a minute), the unique id, the parent id (only t3 means only first-tier!), the upvote count, and the subreddit.  This is our proof of concept.  Now let's go and get some data.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Pulling-Comments-from-Pushshift.io">Pulling Comments from Pushshift.io<a class="anchor-link" href="#Pulling-Comments-from-Pushshift.io">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As noted earlier, Reddit limits you to grabbing 1000 comments in a single call, and this rule extends to the Pushshift API as well.  To collect more than 1000 comments, and also to reflect a wider variety of timeframes than simply the last few days, we will use the feature in Pushshift that allows you to query based on a timestamp.</p>
+<p>We can create a loop that repeatedly collects the 1000 first-tier comments from a subreddit prior to a specified date-time, starting at the present and moving backward at 12 day intervals. I chose 12 days because it will quickly give me a variety of times of year, times of month, days of week, etc., and it is a large enough gap that all comments should be new and my dataset will span at least a full year.</p>
+<p>The API uses the <strong>epoch timestamp format</strong>, a numerical representation.  12 days corresponds to 1036800 units in this format.  What I will do is use an initial timestamp from this week and then subtract 1036800 from it in each request, collecting comments further and further back in time and appending them until I have collected 40000+ first-tier comments from the AskMen subreddit.  I will then do the same thing for AskWomen.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>AskMen Data Grab:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[183]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Creates the initial dataframe </span>
+<span class="c1">#1000 most recent comments at present time (1545243580), filtered to first-tier only</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.pushshift.io/reddit/search/comment/?subreddit=askmen&amp;before=1545243580&amp;sort=des&amp;size=1000&quot;</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;User-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;eamonious&#39;</span><span class="p">}</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="n">json</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">commentsm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="n">commentsm</span> <span class="o">=</span> <span class="n">commentsm</span><span class="p">[[</span><span class="s1">&#39;body&#39;</span><span class="p">,</span><span class="s1">&#39;created_utc&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;parent_id&#39;</span><span class="p">,</span><span class="s1">&#39;score&#39;</span><span class="p">,</span><span class="s1">&#39;subreddit&#39;</span><span class="p">]]</span>
+<span class="c1">#Filters for first-tier comments</span>
+<span class="n">commentsm</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commentsm</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="k">if</span> <span class="s1">&#39;t3_&#39;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">commentsm</span> <span class="o">=</span> <span class="n">commentsm</span><span class="p">[</span><span class="n">commentsm</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1">#Gets rid of mod-removed comments</span>
+<span class="n">commentsm</span> <span class="o">=</span> <span class="n">commentsm</span><span class="p">[</span><span class="n">commentsm</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;[removed]&#39;</span><span class="p">]</span>
+
+<span class="c1">#Loops backward over 12 day intervals, adding the 1000 most recent comments prior to each timepoint,</span>
+<span class="c1">#filtered to first-tier only</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">80</span><span class="p">):</span>
+	<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.pushshift.io/reddit/search/comment/?subreddit=askmen&amp;before=</span><span class="si">{}</span><span class="s2">&amp;sort=des&amp;size=1000&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1545243580</span> <span class="o">-</span> <span class="n">i</span><span class="o">*</span><span class="mi">1036800</span><span class="p">)</span>
+	<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;User-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;eamonious&#39;</span><span class="p">}</span>
+	<span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+	<span class="n">json</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+	<span class="n">commentbloc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+	<span class="n">commentbloc</span> <span class="o">=</span> <span class="n">commentbloc</span><span class="p">[[</span><span class="s1">&#39;body&#39;</span><span class="p">,</span><span class="s1">&#39;created_utc&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;parent_id&#39;</span><span class="p">,</span><span class="s1">&#39;score&#39;</span><span class="p">,</span><span class="s1">&#39;subreddit&#39;</span><span class="p">]]</span>
+	<span class="n">commentbloc</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commentbloc</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="k">if</span> <span class="s1">&#39;t3_&#39;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="n">commentbloc</span> <span class="o">=</span> <span class="n">commentbloc</span><span class="p">[</span><span class="n">commentbloc</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">commentbloc</span> <span class="o">=</span> <span class="n">commentbloc</span><span class="p">[</span><span class="n">commentbloc</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;[removed]&#39;</span><span class="p">]</span>
+	<span class="n">commentsm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">commentsm</span><span class="p">,</span> <span class="n">commentbloc</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[188]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">commentsm</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[188]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>43774</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>AskWomen Data Grab:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[221]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.pushshift.io/reddit/search/comment/?subreddit=askwomen&amp;before=1545243580&amp;sort=des&amp;size=1000&quot;</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;User-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;eamonious&#39;</span><span class="p">}</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="n">json</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">commentsw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="n">commentsw</span> <span class="o">=</span> <span class="n">commentsw</span><span class="p">[[</span><span class="s1">&#39;body&#39;</span><span class="p">,</span><span class="s1">&#39;created_utc&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;parent_id&#39;</span><span class="p">,</span><span class="s1">&#39;score&#39;</span><span class="p">,</span><span class="s1">&#39;subreddit&#39;</span><span class="p">]]</span>
+<span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="k">if</span> <span class="s1">&#39;t3_&#39;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">commentsw</span> <span class="o">=</span> <span class="n">commentsw</span><span class="p">[</span><span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">commentsw</span> <span class="o">=</span> <span class="n">commentsw</span><span class="p">[</span><span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;[removed]&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">80</span><span class="p">):</span>
+	<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.pushshift.io/reddit/search/comment/?subreddit=askwomen&amp;before=</span><span class="si">{}</span><span class="s2">&amp;sort=des&amp;size=1000&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1545243580</span> <span class="o">-</span> <span class="n">i</span><span class="o">*</span><span class="mi">1036800</span><span class="p">)</span>
+	<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;User-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;eamonious&#39;</span><span class="p">}</span>
+	<span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+	<span class="n">json</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+	<span class="n">commentbloc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+	<span class="n">commentbloc</span> <span class="o">=</span> <span class="n">commentbloc</span><span class="p">[[</span><span class="s1">&#39;body&#39;</span><span class="p">,</span><span class="s1">&#39;created_utc&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;parent_id&#39;</span><span class="p">,</span><span class="s1">&#39;score&#39;</span><span class="p">,</span><span class="s1">&#39;subreddit&#39;</span><span class="p">]]</span>
+	<span class="n">commentbloc</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commentbloc</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="k">if</span> <span class="s1">&#39;t3_&#39;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="n">commentbloc</span> <span class="o">=</span> <span class="n">commentbloc</span><span class="p">[</span><span class="n">commentbloc</span><span class="p">[</span><span class="s1">&#39;parent_id&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">commentbloc</span> <span class="o">=</span> <span class="n">commentbloc</span><span class="p">[</span><span class="n">commentbloc</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;[removed]&#39;</span><span class="p">]</span>
+	<span class="n">commentsw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">commentsw</span><span class="p">,</span> <span class="n">commentbloc</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[223]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">commentsw</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[223]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>41555</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our classes are well balanced, both around 40k comments.  We have our data now.  But it needs some more work before we can analyze.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Cleaning-Away-Mod-Messages-and-Deleted-Comments">Cleaning Away Mod Messages and Deleted Comments<a class="anchor-link" href="#Cleaning-Away-Mod-Messages-and-Deleted-Comments">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First, we want to drop any rows with null values.  Second we want to make sure we don't have any duplicate comment IDs.  Because of the way we've collected, it's possible we could have some duplicates.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[259]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Remove rows with null values</span>
+<span class="n">commentsm</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">commentsw</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#Remove comments with the same ID</span>
+<span class="n">commentsm</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">commentsw</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can look at value_counts in the 'body' category (comment text) to look at the most frequently appearing comments with the same text in each subreddit.  A number of these will be moderator boilerplate comments, which are specific to each subreddit.  We will want to remove these.  Also, when comments on reddit are deleted, they are typically replaced by text saying deleted or removed, we will want to get rid of anything like this as well.</p>
+<p>We basically look at what comes up in the high frequency comments list, then filter out what we don't want based on identifying language.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[261]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Removing deleted comments and moderator comments from AskMen</span>
+<span class="n">commentsm</span> <span class="o">=</span> <span class="n">commentsm</span><span class="p">[</span><span class="n">commentsm</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;[deleted]&#39;</span><span class="p">]</span>
+<span class="n">commentsm</span> <span class="o">=</span> <span class="n">commentsm</span><span class="p">[</span><span class="n">commentsm</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">[removed\]&#39;</span><span class="p">]</span>
+
+<span class="n">commentsm</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commentsm</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">0</span> <span class="k">if</span> <span class="s1">&#39;has been removed&#39;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">commentsm</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commentsm</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">0</span> <span class="k">if</span> <span class="s1">&#39;AskMen&#39;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">commentsm</span> <span class="o">=</span> <span class="n">commentsm</span><span class="p">[</span><span class="n">commentsm</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="c1">#Removing deleted comments and moderator comments from AskWomen</span>
+<span class="n">commentsw</span> <span class="o">=</span> <span class="n">commentsw</span><span class="p">[</span><span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;[deleted]&#39;</span><span class="p">]</span>
+
+<span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">0</span> <span class="k">if</span> <span class="s1">&#39;has been removed&#39;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">0</span> <span class="k">if</span> <span class="s1">&#39;emoved&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">0</span> <span class="k">if</span> <span class="s1">&#39;AskWomen&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">commentsw</span> <span class="o">=</span> <span class="n">commentsw</span><span class="p">[</span><span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">commentsw</span> <span class="o">=</span> <span class="n">commentsw</span><span class="p">[</span><span class="n">commentsw</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;Please feel free to respond based on the genders that you find attractive. This question is not limited to women who date men.&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">commentsm</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[34]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(33395, 6)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">commentsw</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[35]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(38405, 6)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our classes are still reasonably well balanced.  We had a much larger number of duplicates (~7000) in the AskMen set, which basically suggests that AskMen is somewhat less active.  This isn't really surprising.  Now we will combine the AskMen and AskWomen comments into a single dataframe.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">comments</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">commentsm</span><span class="p">,</span> <span class="n">commentsw</span><span class="p">])</span>
+<span class="n">comments</span> <span class="o">=</span> <span class="n">comments</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">comments</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[36]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+	.dataframe tbody tr th:only-of-type {
+			vertical-align: middle;
+	}
+
+	.dataframe tbody tr th {
+			vertical-align: top;
+	}
+
+	.dataframe thead th {
+			text-align: right;
+	}
+</style>
+<table border="1" class="dataframe">
+<thead>
+	<tr style="text-align: right;">
+		<th></th>
+		<th>body</th>
+		<th>created_utc</th>
+		<th>id</th>
+		<th>parent_id</th>
+		<th>score</th>
+		<th>subreddit</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<th>0</th>
+		<td>I was 23 but I went with my ~29 year old cowor...</td>
+		<td>1545243578</td>
+		<td>ec4lbi4</td>
+		<td>t3_a7oy9v</td>
+		<td>1</td>
+		<td>AskMen</td>
+	</tr>
+	<tr>
+		<th>1</th>
+		<td>Portland, OR.\r\r\r\n\r\r\r\nThe city itself i...</td>
+		<td>1545243546</td>
+		<td>ec4la0n</td>
+		<td>t3_a7mkui</td>
+		<td>1</td>
+		<td>AskMen</td>
+	</tr>
+	<tr>
+		<th>2</th>
+		<td>nope.    "the cats goodbye"      watch how a c...</td>
+		<td>1545243536</td>
+		<td>ec4l9lm</td>
+		<td>t3_a7fe60</td>
+		<td>1</td>
+		<td>AskMen</td>
+	</tr>
+	<tr>
+		<th>3</th>
+		<td>Drunk as fuck me during an unintended one nigh...</td>
+		<td>1545243524</td>
+		<td>ec4l90i</td>
+		<td>t3_a79zu9</td>
+		<td>1</td>
+		<td>AskMen</td>
+	</tr>
+	<tr>
+		<th>4</th>
+		<td>There was this one time when I went over one o...</td>
+		<td>1545243449</td>
+		<td>ec4l5g6</td>
+		<td>t3_a7kmvc</td>
+		<td>1</td>
+		<td>AskMen</td>
+	</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notice that comment with '\r\r\r\r\n...' Those are line breaks, when people put paragraphs in their comments. Let's check and see how many comments have these things in them.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">comments</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="k">if</span> <span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[37]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>23261</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So 23000+ comments have a \r combo somewhere! This will interfere with our attempt to calculate word length, and may affect our vectorizations and predictions too.  If we look through the data further, there are also a large number of multiple spaces in some comments.  When we go to calculate word length, we're going to want to use the space character as a splitter.  So we need to reduce these to single spaces, or we'll get a bunch of empty spaces counted as words.</p>
+<p>So we want to remove all the \r\n combos, and all the multi-spaces, and replace them with one empty space.  We can make this type of specific text substitution with <strong>regular expressions</strong> (regex for short).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Import Regex</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="c1">#This function selects any consecutive combination of \r&#39;s and \n&#39;s in a bloc of text, </span>
+<span class="c1">#and replaces that selection with a single space.</span>
+<span class="k">def</span> <span class="nf">replace_linebreaks_w_space</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+	<span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;([</span><span class="se">\r\n</span><span class="s1">]+)&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1">#This function selects any stretch of two or more consecutive spaces in a bloc of text,</span>
+<span class="c1">#and replaces that selection with a single space.</span>
+<span class="k">def</span> <span class="nf">replace_multispace_w_space</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+	<span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;([ ]{2,})&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1">#Here we take every comment and apply the two functions to it.</span>
+<span class="n">comments</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">replace_linebreaks_w_space</span><span class="p">)</span>
+<span class="n">comments</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">replace_multispace_w_space</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>NOW we can make a column with a proper word length count for each comment!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Strip away any spaces at the beginning or end of each comment, splits the comment into a list of words, </span>
+<span class="c1">#and returns the length of that list (i.e.; the number of words in the comment)</span>
+<span class="n">comments</span><span class="p">[</span><span class="s1">&#39;word_length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">comments</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[40]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+	.dataframe tbody tr th:only-of-type {
+			vertical-align: middle;
+	}
+
+	.dataframe tbody tr th {
+			vertical-align: top;
+	}
+
+	.dataframe thead th {
+			text-align: right;
+	}
+</style>
+<table border="1" class="dataframe">
+<thead>
+	<tr style="text-align: right;">
+		<th></th>
+		<th>body</th>
+		<th>created_utc</th>
+		<th>id</th>
+		<th>parent_id</th>
+		<th>score</th>
+		<th>subreddit</th>
+		<th>word_length</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<th>0</th>
+		<td>I was 23 but I went with my ~29 year old cowor...</td>
+		<td>1545243578</td>
+		<td>ec4lbi4</td>
+		<td>t3_a7oy9v</td>
+		<td>1</td>
+		<td>AskMen</td>
+		<td>23</td>
+	</tr>
+	<tr>
+		<th>1</th>
+		<td>Portland, OR. The city itself is now unafforda...</td>
+		<td>1545243546</td>
+		<td>ec4la0n</td>
+		<td>t3_a7mkui</td>
+		<td>1</td>
+		<td>AskMen</td>
+		<td>36</td>
+	</tr>
+	<tr>
+		<th>2</th>
+		<td>nope. "the cats goodbye" watch how a cat says ...</td>
+		<td>1545243536</td>
+		<td>ec4l9lm</td>
+		<td>t3_a7fe60</td>
+		<td>1</td>
+		<td>AskMen</td>
+		<td>28</td>
+	</tr>
+	<tr>
+		<th>3</th>
+		<td>Drunk as fuck me during an unintended one nigh...</td>
+		<td>1545243524</td>
+		<td>ec4l90i</td>
+		<td>t3_a79zu9</td>
+		<td>1</td>
+		<td>AskMen</td>
+		<td>16</td>
+	</tr>
+	<tr>
+		<th>4</th>
+		<td>There was this one time when I went over one o...</td>
+		<td>1545243449</td>
+		<td>ec4l5g6</td>
+		<td>t3_a7kmvc</td>
+		<td>1</td>
+		<td>AskMen</td>
+		<td>192</td>
+	</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We now have accurate word length data. PS. Notice that the \r\r\r\n is gone from that comment!</p>
+<p>The last thing we're going to do is <strong><em>remove all comments that are 3 words and shorter</em></strong>, as it's difficult, and for the most part just unreasonable, to guess anything from comments this short.  We want to focus on accurately predicting comments that have some content.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">comments</span> <span class="o">=</span> <span class="n">comments</span><span class="p">[</span><span class="n">comments</span><span class="p">[</span><span class="s1">&#39;word_length&#39;</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">4</span><span class="p">]</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">comments</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[41]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>67354</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">comments</span><span class="p">[</span><span class="s1">&#39;subreddit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[45]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>AskWomen    36335
+AskMen      31019
+Name: subreddit, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's save our cleaned dataset!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">comments</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;comments_final.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+	</div>
+</div>
 
 
 
