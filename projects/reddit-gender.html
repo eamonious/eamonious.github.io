@@ -100,7 +100,7 @@
 					<ul>
 						<li><a href="mailto:eamonfleming@gmail.com"><i class="icon-mail5"></i></a></li>
 						<li><a href="https://www.linkedin.com/in/eamonfleming"><i class="icon-linkedin2"></i></a></li><br/>
-						<li><a class="img-icon-aside" href="https://profiles.generalassemb.ly/eamon-fleming" style="background: url('images/ga-icon-close.png');
+						<li><a class="img-icon-aside" href="https://profiles.generalassemb.ly/eamon-fleming" style="background: url('../images/ga-icon-close.png');
 																																																				background-size: contain;
 																																																				background-repeat: no-repeat;
 																																																				background-position: center center;")><img id="ga-aside" width="29px" src="../images/ga-icon-close-blackwhite.png"></a></li>
@@ -132,7 +132,42 @@
 
 
 <div tabindex="-1" id="notebook" class="border-box-sizing">
-	<div class="container" id="notebook-container">
+<div class="container" id="notebook-container">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Contents:">Contents:<a class="anchor-link" href="#Contents:">&#182;</a></h1><hr>
+<ul class="contents">
+<li><a href="#Building-the-Data-Set">Building the Data Set</a></li>
+<li><a href="#Building-a-Model">Building a Model to Predict Gender</a></li>
+<li><a href="#Fun-Stuff">Now For the Fun Stuff: Gender-Associated Comments and Language Patterns</a></li>
+<li><a href="#Where-Does-the-Model-Get-it-Wrong?">Where Does the Model Get it Wrong?</a></li>
+<li><a href="#Heatmapping-Text-by-Gender-Association-in-Tableau">Heatmapping Text by Gender Association in Tableau</a></li>
+<li><a href="#Conclusions-and-Limitations">Conclusions and Limitations</a></li>
+</ul>
+<hr>
+
+</div>
+</div>
+</div>
+
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Building-the-Data-Set">Building the Data Set<a class="anchor-link" href="#Building-the-Data-Set">&#182;</a></h1>
+</div>
+</div>
+</div>
+
+<!-- SLIDE ONE -->
+<img src="../images/projects/reddit/Slide1.png" width="100%">
+<!-- SLIDE TWO -->
+<img src="../images/projects/reddit/Slide2.png" width="100%">
+
 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -163,12 +198,6 @@
 </div>
 
 </div>
-
-<!-- SLIDE ONE -->
-<img src="../images/projects/reddit/Slide1.png" width="100%">
-<!-- SLIDE TWO -->
-<img src="../images/projects/reddit/Slide2.png" width="100%">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -360,9 +389,9 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For this project, we will be focusing on the subreddits <strong>r/AskMen</strong> and <strong>r/AskWomen</strong>.</p>
+<p>For this project, we will be focusing on the subreddits <strong><a href="https://reddit.com/r/AskMen">r/AskMen</a></strong> and <strong><a href="https://reddit.com/r/AskWomen">r/AskWomen</a></strong>.</p>
 <p>The way these two subreddits work is people make threads in which they ask a question looking for answers from only male or only female redditors, respectively.  So, <strong><em>in each subreddit, we can expect the first-tier comments (replying directly to the thread) to be almost exclusively from men or women, respectively</em></strong>: men answering questions in AskMen, and women answering questions in AskWomen. Thus, if we can grab first-tier comments only from each subreddit, we can get a large, balanced dataset of essentially gender-labeled Reddit comments, without any manual tagging.</p>
-<p>Accordingly, we want to collect only first-tier comments if possible, and exclude all lower-tier comment replies, which may be from either gender. <strong><em>We can filter for first-tier comments by using the 'parent_id' feature</em></strong>.  First tier comments all show the thread id as the parent, which begins with 't3<em>'. Lower-tier comments show the id of the parent comment, which uses a different prefix.  All we need to do is exclude anything that doesn't have the 't3</em>' prefix.</p>
+<p>Accordingly, we want to collect only first-tier comments if possible, and exclude all lower-tier comment replies, which may be from either gender. <strong><em>We can filter for first-tier comments by using the 'parent_id' feature</em></strong>.  First tier comments all show the thread id as the parent, which begins with 't3'. Lower-tier comments show the id of the parent comment, which uses a different prefix.  All we need to do is exclude anything that doesn't have the 't3</em>' prefix.</p>
 
 </div>
 </div>
@@ -1266,8 +1295,1577 @@ Name: subreddit, dtype: int64</pre>
 </div>
 
 </div>
+
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Building-a-Model">Building a Model to Predict Gender From Text<a class="anchor-link" href="#Building-a-Model">&#182;</a></h1>
+</div>
+</div>
+</div>
+
+<!-- SLIDE THREE -->
+<img src="../images/projects/reddit/Slide3.png" width="100%">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-do-We-Represent-Language-So-Computers-Can-Analyze-It?">How do We Represent Language So Computers Can Analyze It?<a class="anchor-link" href="#How-do-We-Represent-Language-So-Computers-Can-Analyze-It?">&#182;</a></h3><p>If we want to analyze Reddit comments to make some prediction about them, we need to first find a way to <strong>vectorize</strong>, or numerically represent, the text of the comments.  This is the first concern of <strong>natural language processing (NLP)</strong>.  The entire comment collection taken together is referred to as the <strong>corpus</strong>, from the Latin for body.</p>
+<p>One common approach to vectorizing words is called the <strong>bag of words</strong> representation.  In this strategy, we don't care about the relative positions of any of the words in a comment.  All we do is break the words into units (<strong>tokenization</strong>), count how often a given word appears in each comment, and then create a vector for each comment that is just the number of times each word appears, including all the 0s for words that appear somewhere in the corpus, but don't appear in that particular comment.<br>
+When we do this, we usually want to exclude words that are extremely common, like "the", "and", etc... these words dominate frequencies, but their influence on the meaning of the text is usually minimal.  So it's better to leave them out if we're trying to make accurate predictions.  In NLP, these words are called <strong>stop words</strong>, and there are standard exclusion lists that are built into the available vectorizers as options.</p>
+<p>There are a few different vectorizers to choose from:  <strong>CountVectorizer()</strong> and <strong>TfidfVectorizer()</strong> are the most widely used.  CountVectorizer tokenizes and counts, and that's it.  TfIdfVectorizer goes a step further, and <strong>normalizes</strong> the frequencies.  Basically, TfidfVectorizer will apply a transformation to our comment vectors that will <strong>down-weight the influence of words that appear in a lot of comments, while up-weighting the influence of rarer words</strong>.  The idea behind this is that common words tend to be less interesting to us; they give us less information about the comment.  Rarer words are more likely to have predictive value.</p>
+<p>That said, if a word is <em>too rare</em>, and only appears in one or two comments, there isn't much point to including it - what patterns can it really give us?  There are parameters that will allow us to only include words in our analysis if they appear in at least <em>n</em> comments.</p>
+<p>Single words may be able to help us predict whether a comment is AskMen or AskWomen, but what if we want to consider the frequency of certain <em>pairs</em> of words, or <em>triads</em>?  This is where <strong>n-grams</strong>, or groups of n words, come into play.  We can run our model with different combinations of n-grams included and see which performs best.  In this case, we found the best performance with a model that included n=1 (individual words), n=2 (pairs), and n=3.  Using n-grams gives us at least <em>some</em> characterization of the relative positions of words in each comment. It's no surprise that this improves our ability to predict a comment's origin.</p>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="k">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction</span> <span class="k">import</span> <span class="n">stop_words</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="k">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">LogisticRegression</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- SLIDE FOUR -->
+<img src="../images/projects/reddit/Slide4.png" width="100%">
+
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Logistic-Regression:-Classification-We-Can-Explain">Logistic Regression: Classification We Can Explain<a class="anchor-link" href="#Logistic-Regression:-Classification-We-Can-Explain">&#182;</a></h3><p>Predicting the subreddit that a comment has come from, or by extension the gender of a comment author, is a <strong>classification problem</strong>.  We want to classify each comment into one of two categories based on the combinations of words it contains.</p>
+<p>One of the classic techniques in classification is <strong>logistic regression</strong>.  This name may be confusing, because typically when we talk about regression, we are trying to predict a continuous variable, rather than classifying into categories.  The connection is that logistic regression <em>does</em> technically output a continuous variable.  But what it outputs is a <strong>predicted probability</strong>, which represents how likely the model thinks it is that the comment is in a given category.</p>
+<p>Logistic regression derives its name from the <strong>logistic function</strong>, which maps numbers in the range $(-\infty, \infty)$ to the range $(0,1)$. To generate a probability output from a linear combination of features and regression coefficients, logistic regression needs to performs this mapping effect, always returning outputs in the $(0,1)$ range.  You may be familiar with the ideas behind <strong>linear regression</strong>, in which a line is fit to data such that it minimizes the total prediction error across all observations.  Logistic regression uses a different optimization method than the least squares technique used in linear regression, but it is similar in that it ultimately relies on optimizing regression coefficients for each feature variable, which makes it similarly very interpretable, and that it seeks to <strong><em>minimize the overall error between its predicted probabilities and the true answers (0 or 1) for each comment</em></strong>.
+<img src="../images/projects/reddit/logreg.png">
+I experimented with two other classification techniques as a part of this project, including <strong>Naive Bayes</strong> and sklearn's <strong>Random Forest Classifier</strong>.  These are entirely different algorithms which I will not discuss further here.  Random Forest, in particular, is a decision-tree based technique that tends to be very powerful.  However in this case, I found that <strong><em>logistic regression actually returned the highest accuracy scores</em></strong>.</p>
+<p>More importantly though, logistic regression is the best approach for our goals in this project, because it is extremely <strong>interpretable</strong>, meaning we can clearly characterize the factors (i.e.; the words or n-grams) influencing its final predictions. The other methods I've mentioned are also interpretable to a degree, but less so.  This explanatory advantage is why logistic regression remains a <em>very</em> frequently used technique in the world of classification problems.</p>
+<p>The last thing we need to know about logistic regression is that it involves <strong>regularization</strong>.  For a thorough explanation of regularization, please see the explanation I have made <strong><a href="../projects/housing-regression.html#Feature-Elimination-and-Regularization">here</a></strong>.  But the short version is that it is an extension of Logistic Regression's loss function that counterbalances the attempt to minimize error by also trying to minimize the scale of the feature coefficients.  Sometimes, especially when you have a large number of features like we do here (every word is a feature!), you can over-train to your learning data until you're just training to noise that will be useless for classifying new data.  By restricting the size of coefficients, regularization provides resistance against this happening.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Fitting-the-Best-Model">Fitting the Best Model<a class="anchor-link" href="#Fitting-the-Best-Model">&#182;</a></h3><p>We could talk for days about how to build the best performing model, and there are certainly other improvements we could explore.  But the core process is <strong>GridSearching over hyperparameters</strong>.  We talked above about some of the different hyperparameter options in language processing.  Here are some that we need to consider:</p>
+<ul>
+<li><em>Should we exclude stop words or not?</em></li>
+<li><em>Do we want to just use single words, or should we look at n-grams too?</em></li>
+<li><em>How many different comments does a word or n-gram need to appear in, for it to be included as a predictor?</em> </li>
+<li><em>What type of regularization do we want to use to prevent overfitting?</em></li>
+<li><em>How strong do we want our regularization to be?</em></li>
+</ul>
+<p>Basically, the GridSearch function will fit a model a few times each (splitting the data differently each time) across a bunch of different hyperparameter combinations, and select the hyperparameter combination that returns the highest average accuracy score.</p>
+<p>In addition, we wanted to try out both vectorizers.  The vectorizer function and the LogisticRegression() function both have hyperparameters that we want to test with.  What we can do is set up a <strong>pipeline</strong>, which will let us run one GridSearch across the hyperparameters for both functions.  We'll do one pipeline for each vectorizer and see what gives the best result.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[148]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Separate data into comment text (features) and subreddit (target variable)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">comments</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">comments</span><span class="p">[</span><span class="s1">&#39;subreddit&#39;</span><span class="p">]</span>
+
+<span class="c1">#Train test split. Stratify=y guarantees that class balance will be maintained across train and test bloc</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="GridSearch:-CountVectorizer-and-Logistic-Regression">GridSearch: CountVectorizer and Logistic Regression<a class="anchor-link" href="#GridSearch:-CountVectorizer-and-Logistic-Regression">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Creates pipeline to handle vectorization and logistic regression steps</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+	<span class="p">(</span><span class="s1">&#39;vect&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">()),</span>
+	<span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())</span>
+	 <span class="p">])</span>
+
+<span class="c1">#Specifies different hyperparameter values that we want to test across</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="s1">&#39;vect__ngram_range&#39;</span><span class="p">:[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)],</span>
+	<span class="s1">&#39;vect__min_df&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
+	<span class="s1">&#39;vect__stop_words&#39;</span><span class="p">:[</span><span class="kc">None</span><span class="p">,</span><span class="s1">&#39;english&#39;</span><span class="p">],</span>
+	<span class="s1">&#39;model__penalty&#39;</span><span class="p">:[</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span><span class="s1">&#39;l1&#39;</span><span class="p">],</span>
+	<span class="s1">&#39;model__C&#39;</span><span class="p">:[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="c1">#Executes GridSearch</span>
+<span class="n">gs_lr1</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">gs_lr1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fitting 4 folds for each of 24 candidates, totalling 96 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Done  16 tasks      | elapsed:  3.9min
+[Parallel(n_jobs=-1)]: Done  96 out of  96 | elapsed: 24.0min finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[42]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>GridSearchCV(cv=4, error_score=&#39;raise&#39;,
+		 estimator=Pipeline(memory=None,
+	 steps=[(&#39;vect&#39;, CountVectorizer(analyzer=&#39;word&#39;, binary=False, decode_error=&#39;strict&#39;,
+			dtype=&lt;class &#39;numpy.int64&#39;&gt;, encoding=&#39;utf-8&#39;, input=&#39;content&#39;,
+			lowercase=True, max_df=1.0, max_features=None, min_df=1,
+			ngram_range=(1, 1), preprocessor=None, stop_words=None,
+			strip...ty=&#39;l2&#39;, random_state=None, solver=&#39;liblinear&#39;, tol=0.0001,
+				verbose=0, warm_start=False))]),
+		 fit_params=None, iid=True, n_jobs=-1,
+		 param_grid={&#39;vect__ngram_range&#39;: [(1, 3)], &#39;vect__min_df&#39;: [2, 5], &#39;vect__stop_words&#39;: [None, &#39;english&#39;], &#39;model__penalty&#39;: [&#39;l2&#39;, &#39;l1&#39;], &#39;model__C&#39;: [0.1, 1, 10]},
+		 pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=&#39;warn&#39;,
+		 scoring=None, verbose=3)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Training data accuracy score</span>
+<span class="n">gs_lr1</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[12]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.9105414233396021</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Test data accuracy score</span>
+<span class="n">gs_lr1</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[13]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.7040798147158382</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Shows us which hyperparameters were chosen</span>
+<span class="n">gs_lr1</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">steps</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[16]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(&#39;vect&#39;, CountVectorizer(analyzer=&#39;word&#39;, binary=False, decode_error=&#39;strict&#39;,
+				dtype=&lt;class &#39;numpy.int64&#39;&gt;, encoding=&#39;utf-8&#39;, input=&#39;content&#39;,
+				lowercase=True, max_df=1.0, max_features=None, min_df=2,
+				ngram_range=(1, 2), preprocessor=None, stop_words=None,
+				strip_accents=None, token_pattern=&#39;(?u)\\b\\w\\w+\\b&#39;,
+				tokenizer=None, vocabulary=None)),
+(&#39;model&#39;,
+LogisticRegression(C=0.1, class_weight=None, dual=False, fit_intercept=True,
+					intercept_scaling=1, max_iter=100, multi_class=&#39;ovr&#39;, n_jobs=1,
+					penalty=&#39;l2&#39;, random_state=None, solver=&#39;liblinear&#39;, tol=0.0001,
+					verbose=0, warm_start=False))]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="GridSearch:-TdidfVectorizer-and-Logistic-Regression">GridSearch: TdidfVectorizer and Logistic Regression<a class="anchor-link" href="#GridSearch:-TdidfVectorizer-and-Logistic-Regression">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pipe2</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+	<span class="p">(</span><span class="s1">&#39;vect&#39;</span><span class="p">,</span> <span class="n">TfidfVectorizer</span><span class="p">()),</span>
+	<span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())</span>
+	 <span class="p">])</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="s1">&#39;vect__ngram_range&#39;</span><span class="p">:[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)],</span>
+	<span class="s1">&#39;vect__min_df&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
+	<span class="s1">&#39;vect__stop_words&#39;</span><span class="p">:[</span><span class="kc">None</span><span class="p">,</span><span class="s1">&#39;english&#39;</span><span class="p">],</span>
+	<span class="s1">&#39;model__penalty&#39;</span><span class="p">:[</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span><span class="s1">&#39;l1&#39;</span><span class="p">],</span>
+	<span class="s1">&#39;model__C&#39;</span><span class="p">:[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">gs_lr2</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipe2</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">gs_lr2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fitting 4 folds for each of 24 candidates, totalling 96 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Done  25 tasks      | elapsed:  4.6min
+[Parallel(n_jobs=-1)]: Done  96 out of  96 | elapsed: 14.4min finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[67]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>GridSearchCV(cv=4, error_score=&#39;raise&#39;,
+		 estimator=Pipeline(memory=None,
+	 steps=[(&#39;vect&#39;, TfidfVectorizer(analyzer=&#39;word&#39;, binary=False, decode_error=&#39;strict&#39;,
+			dtype=&lt;class &#39;numpy.int64&#39;&gt;, encoding=&#39;utf-8&#39;, input=&#39;content&#39;,
+			lowercase=True, max_df=1.0, max_features=None, min_df=1,
+			ngram_range=(1, 1), norm=&#39;l2&#39;, preprocessor=None, smooth_idf=True,
+...ty=&#39;l2&#39;, random_state=None, solver=&#39;liblinear&#39;, tol=0.0001,
+				verbose=0, warm_start=False))]),
+		 fit_params=None, iid=True, n_jobs=-1,
+		 param_grid={&#39;vect__ngram_range&#39;: [(1, 3)], &#39;vect__min_df&#39;: [2, 5], &#39;vect__stop_words&#39;: [None, &#39;english&#39;], &#39;model__penalty&#39;: [&#39;l2&#39;, &#39;l1&#39;], &#39;model__C&#39;: [0.1, 1, 10]},
+		 pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=&#39;warn&#39;,
+		 scoring=None, verbose=2)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Training data score</span>
+<span class="n">gs_lr2</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[68]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.8380481045234089</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[69]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Test data score</span>
+<span class="n">gs_lr2</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[69]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.7051487618029574</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Shows which hyperparameters were chosen</span>
+<span class="n">gs_lr2</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">steps</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[70]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(&#39;vect&#39;, TfidfVectorizer(analyzer=&#39;word&#39;, binary=False, decode_error=&#39;strict&#39;,
+				dtype=&lt;class &#39;numpy.int64&#39;&gt;, encoding=&#39;utf-8&#39;, input=&#39;content&#39;,
+				lowercase=True, max_df=1.0, max_features=None, min_df=5,
+				ngram_range=(1, 3), norm=&#39;l2&#39;, preprocessor=None, smooth_idf=True,
+				stop_words=None, strip_accents=None, sublinear_tf=False,
+				token_pattern=&#39;(?u)\\b\\w\\w+\\b&#39;, tokenizer=None, use_idf=True,
+				vocabulary=None)),
+(&#39;model&#39;,
+LogisticRegression(C=1, class_weight=None, dual=False, fit_intercept=True,
+					intercept_scaling=1, max_iter=100, multi_class=&#39;ovr&#39;, n_jobs=1,
+					penalty=&#39;l2&#39;, random_state=None, solver=&#39;liblinear&#39;, tol=0.0001,
+					verbose=0, warm_start=False))]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Model-Results">Model Results<a class="anchor-link" href="#Model-Results">&#182;</a></h3><p>The two vectorizers performed comparably, with accuracy around <strong>70.5%</strong>.  Whenever we attempt a classification problem, we want to keep in mind our <strong>baseline accuracy</strong>, which depends on the class balance of our target variable.  Think of it this way:  if we have 1000 comments, and 900 are from women, the model could simply predict that all comments are from women, and it would have a 90% accuracy score.  In fact, this is exactly what models will often do in such cases.  <strong>This is why we try to balance our classes.</strong>  In this case, we had 36335 AskWomen comments, 31019 AskMen, so the baseline accuracy = 36335/67354, or about <strong>54%</strong>.  Raising this to <strong>70.5%</strong> is a considerable improvement.</p>
+<p>In evaluating your model's performance, it's also helpful to think about the reality of the challenge.  Predicting gender from text is not trivial. And the majority of these comments are short.  <strong><em>What percentage of Reddit comments do we think a human could correctly categorize as male or female, just looking at the text?</em></strong>  70% seems fairly high.</p>
+<p>Let's proceed with the TfidfVec model, which has a slight edge in performance.  The final model:</p>
+<ul>
+<li><em>uses Tfidf Vectorization with normalization</em></li>
+<li><em>uses Ridge regularization with strength $\alpha$ = 1</em></li>
+<li><em>includes n-grams of length 1, 2, and 3</em></li>
+<li><em>does </em>not<em> exclude stop words</em></li>
+<li><em>includes only words or n-grams that appear in at least 5 comments</em></li>
+</ul>
+<p>One thing that causes some concern is that the training scores are noticeably higher than the test scores, which typically indicates overfitting.  This is a bit surprising, because the cross-validation built in to the GridSearch process involves evaluating the model on unseen data.  To investigate this, I tried setting a maximum number of features and running the model again.  What I found is that if I maxed features at 3000, this effect disappeared, and returned in proportion as I raised the max up again.  Still, the model accuracy on the test set marginally improved with the increased features, so I will continue with the model as is.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Confusion-Matrix-for-LogReg-with-Tfidf">Confusion Matrix for LogReg with Tfidf<a class="anchor-link" href="#Confusion-Matrix-for-LogReg-with-Tfidf">&#182;</a></h3><p>A confusion matrix gives us a clearer sense of where our model is performing better or worse.  See below.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[76]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">fancy_confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">):</span>
+
+	<span class="n">cmat</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Accuracy: {accuracy_score(y_test, preds)}&#39;</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">))</span>
+	<span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cmat</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Predicted &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;AskMen&#39;</span><span class="p">,</span><span class="s1">&#39;AskWomen&#39;</span><span class="p">]],</span>\
+					<span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Actual &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;AskMen&#39;</span><span class="p">,</span><span class="s1">&#39;AskWomen&#39;</span><span class="p">]])</span>
+
+<span class="n">predicts</span> <span class="o">=</span> <span class="n">gs_lr2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">fancy_confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predicts</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../images/projects/reddit/confusionmatrix-logreg.png" alt=""></p>
+
+</div>
+</div>
+</div>
+
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As you can see above, when the model makes a prediction, the <strong>precision</strong> of that prediction, i.e.; the percentage of times the prediction is correct, is about the same, regardless of what was predicted (~70-71%).  However, the <strong>recall</strong>, or <strong>sensitivity</strong>, varies significantly between the genders.  The model has a harder time detecting that an AskMen comment comes from AskMen (63%) than it does detecting that an AskWomen comment comes from AskWomen (77%).  Basically, this suggests that <strong><em>the word or n-gram signature of female comments is a bit more distinctive</em></strong>.</p>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Fun-Stuff">NOW FOR THE FUN STUFF...<a class="anchor-link" href="#Fun-Stuff">&#182;</a></h1>
+</div>
+</div>
+</div>
+
+<!-- SLIDE FIVE -->
+<img src="../images/projects/reddit/Slide5.png" width="100%">
+<!-- SLIDE EIGHT -->
+<img src="../images/projects/reddit/Slide8.png" width="100%">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Identifying-the-Most-Gender-Predictive-Words-and-Phrases">Identifying the Most Gender-Predictive Words and Phrases<a class="anchor-link" href="#Identifying-the-Most-Gender-Predictive-Words-and-Phrases">&#182;</a></h3><p>The first thing we can do is look at the regression coefficients for every word or n-gram, sorted negative to positive.  In this model, we have assigned AskMen comments to 0 and AskWomen comments to 1.  So the words or n-grams with the strongest <em>positive</em> coefficients in our model are the words or n-grams that are most predictive of female authorship (they push the outcome towards 1 the most).  And the words or n-grams with the strongest <em>negative</em> coefficients are the most predictive of male authorship (they push the outcome toward 0).  This is how we can <strong><em>identify the words and n-grams that point towards a gender.</em></strong> And REMEMBER - the words with the most influential coefficients one way or the other don't just represent the words that are most likely to appear in comments by a given gender. They also have to be <em>unlikely to appear</em> in comments made by the <em>other gender</em>.  This is a binary classification problem, after all. In short, <strong><em>the model is looking for words and n-grams that are highly frequent in one subreddit RELATIVE TO THE OTHER.</em></strong></p>
+<p>By sorting the resulting coefficients and looking at the 200 words and n-grams that are most predictive of each gender's authorship, we will see that obvious gender-oriented and subject-oriented keywords and phrases are predominant.  But we can also begin to notice subtler linguistic trends, which I have summarized in the presentation slides.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[86]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">coefs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">gs_lr2</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">coefs</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;coef&#39;</span><span class="p">]</span>
+<span class="n">coefs</span><span class="p">[</span><span class="s1">&#39;ngram&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gs_lr2</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
+<span class="n">coefs</span> <span class="o">=</span> <span class="n">coefs</span><span class="p">[[</span><span class="s1">&#39;ngram&#39;</span><span class="p">,</span><span class="s1">&#39;coef&#39;</span><span class="p">]]</span>
+<span class="n">coefs</span> <span class="o">=</span> <span class="n">coefs</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;coef&#39;</span><span class="p">)</span>
+<span class="n">coefs</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/coef_ranks.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[91]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Shows words and n-grams most strongly associated with comments by men</span>
+<span class="n">coefs</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[91]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+	.dataframe tbody tr th:only-of-type {
+			vertical-align: middle;
+	}
+
+	.dataframe tbody tr th {
+			vertical-align: top;
+	}
+
+	.dataframe thead th {
+			text-align: right;
+	}
+</style>
+<table border="1" class="dataframe">
+<thead>
+	<tr style="text-align: right;">
+		<th></th>
+		<th>ngram</th>
+		<th>coef</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<th>0</th>
+		<td>wife</td>
+		<td>-10.541040</td>
+	</tr>
+	<tr>
+		<th>1</th>
+		<td>girlfriend</td>
+		<td>-9.225318</td>
+	</tr>
+	<tr>
+		<th>2</th>
+		<td>my wife</td>
+		<td>-8.849548</td>
+	</tr>
+	<tr>
+		<th>3</th>
+		<td>gf</td>
+		<td>-8.825405</td>
+	</tr>
+	<tr>
+		<th>4</th>
+		<td>girls</td>
+		<td>-8.262061</td>
+	</tr>
+	<tr>
+		<th>5</th>
+		<td>beard</td>
+		<td>-8.193986</td>
+	</tr>
+	<tr>
+		<th>6</th>
+		<td>girl</td>
+		<td>-7.893103</td>
+	</tr>
+	<tr>
+		<th>7</th>
+		<td>my girlfriend</td>
+		<td>-7.086567</td>
+	</tr>
+	<tr>
+		<th>8</th>
+		<td>her</td>
+		<td>-6.864349</td>
+	</tr>
+	<tr>
+		<th>9</th>
+		<td>you</td>
+		<td>-6.782092</td>
+	</tr>
+	<tr>
+		<th>10</th>
+		<td>dick</td>
+		<td>-6.748809</td>
+	</tr>
+	<tr>
+		<th>11</th>
+		<td>father</td>
+		<td>-6.585669</td>
+	</tr>
+	<tr>
+		<th>12</th>
+		<td>she</td>
+		<td>-6.401139</td>
+	</tr>
+	<tr>
+		<th>13</th>
+		<td>if she</td>
+		<td>-6.349993</td>
+	</tr>
+	<tr>
+		<th>14</th>
+		<td>gt</td>
+		<td>-6.295696</td>
+	</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[88]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">coefs</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[88]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>421776</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We have over 400,000 different words and n-grams in our feature list!  Let's take the <strong>200 most predictive words/n-grams for each gender</strong> (top .0005) and make word clouds to visualize them.</p>
+<h3 id="Gender-Predictive-Word-Clouds">Gender-Predictive Word Clouds<a class="anchor-link" href="#Gender-Predictive-Word-Clouds">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[100]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">wordcloud</span> <span class="k">import</span> <span class="n">WordCloud</span>
+
+<span class="n">AskMenWordCloud</span> <span class="o">=</span> <span class="n">coefs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">200</span><span class="p">]</span>
+<span class="n">AskWomenWordCloud</span> <span class="o">=</span> <span class="n">coefs</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;coef&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">200</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[103]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#How to create a wordcloud:</span>
+<span class="n">d</span><span class="o">=</span><span class="p">{}</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">AskMenWordCloud</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+	<span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">wordcloud</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
+							<span class="n">background_color</span> <span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
+							<span class="n">min_font_size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">generate_from_frequencies</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wordcloud</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- SLIDE SEVEN -->
+<img src="../images/projects/reddit/Slide7.png" width="100%">
+<!-- SLIDE NINE -->
+<img src="../images/projects/reddit/Slide9.png" width="100%">
+<!-- SLIDE SIX -->
+<img src="../images/projects/reddit/Slide6.png" width="100%">
+<!-- SLIDE TEN -->
+<img src="../images/projects/reddit/Slide10.png" width="100%">
+
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Identifying-the-Most-Gender-Linked-Comments">Identifying the Most Gender-Linked Comments<a class="anchor-link" href="#Identifying-the-Most-Gender-Linked-Comments">&#182;</a></h3><p>Each comment in our data set has a predicted probability of being male or female-authored attached to it.  So another interesting thing we can do is sort by these predicted probabilities to identify <strong><em>the comments that the model identifies as the</em> most <em>obviously male or</em> most  <em>obviously female</em></strong>.  Let's take a look at some of the top results:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Puts predicted probabilities and associated text into a dataframe</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">gs_lr2</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<span class="n">predictions</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Shows the top AskMen predicted comments</span>
+<span class="n">predictions</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">25</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[39]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+	.dataframe tbody tr th:only-of-type {
+			vertical-align: middle;
+	}
+
+	.dataframe tbody tr th {
+			vertical-align: top;
+	}
+
+	.dataframe thead th {
+			text-align: right;
+	}
+</style>
+<table border="1" class="dataframe">
+<thead>
+	<tr style="text-align: right;">
+		<th></th>
+		<th>0</th>
+		<th>1</th>
+		<th>text</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<th>29958</th>
+		<td>0.995476</td>
+		<td>0.004524</td>
+		<td>You need to be able to distinguish between a g...</td>
+	</tr>
+	<tr>
+		<th>9195</th>
+		<td>0.990102</td>
+		<td>0.009898</td>
+		<td>Start with a physical change. Get a good hairc...</td>
+	</tr>
+	<tr>
+		<th>46357</th>
+		<td>0.989392</td>
+		<td>0.010608</td>
+		<td>Seyi shay. Her composure!</td>
+	</tr>
+	<tr>
+		<th>10730</th>
+		<td>0.988990</td>
+		<td>0.011010</td>
+		<td>She’s my wife :)</td>
+	</tr>
+	<tr>
+		<th>62159</th>
+		<td>0.987332</td>
+		<td>0.012668</td>
+		<td>My wife walked with her mom.</td>
+	</tr>
+	<tr>
+		<th>5575</th>
+		<td>0.987021</td>
+		<td>0.012979</td>
+		<td>Well, most likely if she’s sucking on yo dick ...</td>
+	</tr>
+	<tr>
+		<th>6819</th>
+		<td>0.986445</td>
+		<td>0.013555</td>
+		<td>&amp;gt;girl &amp;gt;friend Pick one OP</td>
+	</tr>
+	<tr>
+		<th>23865</th>
+		<td>0.985701</td>
+		<td>0.014299</td>
+		<td>Usually, you are attracted to the person befor...</td>
+	</tr>
+	<tr>
+		<th>26589</th>
+		<td>0.985633</td>
+		<td>0.014367</td>
+		<td>You tried... She declined... She knows you tri...</td>
+	</tr>
+	<tr>
+		<th>20508</th>
+		<td>0.985479</td>
+		<td>0.014521</td>
+		<td>Say nothing, don't answer any questions. Becau...</td>
+	</tr>
+	<tr>
+		<th>11539</th>
+		<td>0.985391</td>
+		<td>0.014609</td>
+		<td>I'm a girl and I would say if you're unsure ju...</td>
+	</tr>
+	<tr>
+		<th>14715</th>
+		<td>0.985179</td>
+		<td>0.014821</td>
+		<td>Dated like a 9.5/10. She was a child model but...</td>
+	</tr>
+	<tr>
+		<th>20445</th>
+		<td>0.984321</td>
+		<td>0.015679</td>
+		<td>*"You already tied my hands when when you aske...</td>
+	</tr>
+	<tr>
+		<th>24931</th>
+		<td>0.983710</td>
+		<td>0.016290</td>
+		<td>If she's that important to you, ask her if she...</td>
+	</tr>
+	<tr>
+		<th>5771</th>
+		<td>0.983663</td>
+		<td>0.016337</td>
+		<td>&amp;gt; 5/7 days a week, 2 of which she may get p...</td>
+	</tr>
+	<tr>
+		<th>16115</th>
+		<td>0.982606</td>
+		<td>0.017394</td>
+		<td>You're correct that you waited too long. Now, ...</td>
+	</tr>
+	<tr>
+		<th>11696</th>
+		<td>0.982498</td>
+		<td>0.017502</td>
+		<td>Let her deal with it. She's your girlfriend ri...</td>
+	</tr>
+	<tr>
+		<th>15995</th>
+		<td>0.982411</td>
+		<td>0.017589</td>
+		<td>ffs, stop obsessing, start living. I'll be blu...</td>
+	</tr>
+	<tr>
+		<th>21541</th>
+		<td>0.982006</td>
+		<td>0.017994</td>
+		<td>&amp;gt; I'm a bad guy? How you feel if you live t...</td>
+	</tr>
+	<tr>
+		<th>11960</th>
+		<td>0.981889</td>
+		<td>0.018111</td>
+		<td>Your GF should be willing to block/unfriend hi...</td>
+	</tr>
+	<tr>
+		<th>7629</th>
+		<td>0.981193</td>
+		<td>0.018807</td>
+		<td>First sight. If she's attractive I'd have sex ...</td>
+	</tr>
+	<tr>
+		<th>26506</th>
+		<td>0.979376</td>
+		<td>0.020624</td>
+		<td>Know how she takes her coffee or tea, and make...</td>
+	</tr>
+	<tr>
+		<th>21410</th>
+		<td>0.979373</td>
+		<td>0.020627</td>
+		<td>Cold hard practiced rejection. No...I'm seriou...</td>
+	</tr>
+	<tr>
+		<th>15474</th>
+		<td>0.978634</td>
+		<td>0.021366</td>
+		<td>&amp;gt;it turns her on to turn you on A good star...</td>
+	</tr>
+	<tr>
+		<th>15221</th>
+		<td>0.978353</td>
+		<td>0.021647</td>
+		<td>I dont think its breakup worthy yet. Maybe you...</td>
+	</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Data-Set-String-Search">Data Set String Search<a class="anchor-link" href="#Data-Set-String-Search">&#182;</a></h3><p>Here I built out a quick function to return any comment in my dataset containing a given word or phrase.  This helped me to review full comments of interest after looking at the predict_proba dataframe display.  Could be a useful tool in other contexts as well.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[143]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">print_comment_if_string</span><span class="p">(</span><span class="n">string</span><span class="p">,</span><span class="n">comment</span><span class="p">):</span>
+	<span class="k">if</span> <span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">comment</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+			<span class="nb">print</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[147]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Just change the string and run the loop to search for comments</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">comments</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]:</span>
+	<span class="n">print_comment_if_string</span><span class="p">(</span><span class="s1">&#39;let her deal&#39;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Let her deal with it. She&#39;s your girlfriend right? You trust her right? You care about her? She&#39;s asking you to let her handle it. So let her handle it. It sucks and it&#39;s gonna stress you out probably, but the other dude wins if you fly off the handle or fuck with this dude. Because then GF is mad at you. I would let her deal with it and just be mad a few days. It&#39;s okay to be mad, it&#39;s understandable.
+-----
+I&#39;d do nothing. Let her deal with it. My gf would tell me, instantly block him and move on. If you try to go beat him up or something it does nothing but start more shit.
+-----
+Honestly mate.... leave. I was with a woman for about 2 years who suffered with depression. I kept thinking that things would get better and I tried everything to help and support her... but ultimately, she just wasn&#39;t coming to the party to try and improve the situation. She wouldn&#39;t commit to her medication, she refused therapy, she wouldn&#39;t exercise or get out of the house. I was quite easy on her at first and let her deal with it in her own way, gave her plenty of time/space and I remained supportive and understanding. Then I realized just how much I wasn&#39;t enjoying life by being with her and living in this dark space. Quite frankly, it was shit. Once i left it was like dropping a heavy bag off rocks and I&#39;ve never looked back. Life has been great since. May or may not be the answer you seek, but I&#39;d strongly advise it particularly if she&#39;s making minimal or no effort to better the situation. You deserve a better quality of life.
+-----
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Where-Does-the-Model-Get-it-Wrong?">Where Does the Model Get it Wrong?<a class="anchor-link" href="#Where-Does-the-Model-Get-it-Wrong?">&#182;</a></h1>
+</div>
+</div>
+</div>
+
+<!-- SLIDE ELEVEN -->
+<img src="../images/projects/reddit/Slide11.png" width="100%">
+
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now let's look at comments where <strong>the true answer does not match the model's prediction</strong>.  Because we have predicted probabilities, we can see exactly how sure the model was about its wrong predictions.  Mostly we would expect that the predicted probabilities would be closer to 0.5/0.5 for wrong answers, but by looking at where the model is highly certain about an <em>incorrect</em> answer, we can learn something about our model.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[211]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">gs_lr2</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<span class="n">predictions</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span>
+<span class="n">predictions</span><span class="p">[</span><span class="s1">&#39;true&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments</span><span class="p">[</span><span class="s1">&#39;subreddit&#39;</span><span class="p">]</span>
+<span class="n">predictions</span><span class="p">[</span><span class="s1">&#39;pred&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gs_lr2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">predictions</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AskMen&#39;</span><span class="p">,</span><span class="s1">&#39;AskWomen&#39;</span><span class="p">,</span><span class="s1">&#39;text&#39;</span><span class="p">,</span><span class="s1">&#39;true&#39;</span><span class="p">,</span><span class="s1">&#39;pred&#39;</span><span class="p">]</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[[</span><span class="s1">&#39;text&#39;</span><span class="p">,</span><span class="s1">&#39;true&#39;</span><span class="p">,</span><span class="s1">&#39;pred&#39;</span><span class="p">,</span><span class="s1">&#39;AskMen&#39;</span><span class="p">,</span><span class="s1">&#39;AskWomen&#39;</span><span class="p">]]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[229]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Let&#39;s look at comments where the model guessed wrong.</span>
+<span class="n">wrong</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="n">predictions</span><span class="p">[</span><span class="s1">&#39;true&#39;</span><span class="p">]</span><span class="o">!=</span><span class="n">predictions</span><span class="p">[</span><span class="s1">&#39;pred&#39;</span><span class="p">]]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[235]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Predicts AskMen strongly when the answer is AskWomen</span>
+<span class="n">wrong</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;AskMen&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[235]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+	.dataframe tbody tr th:only-of-type {
+			vertical-align: middle;
+	}
+
+	.dataframe tbody tr th {
+			vertical-align: top;
+	}
+
+	.dataframe thead th {
+			text-align: right;
+	}
+</style>
+<table border="1" class="dataframe">
+<thead>
+	<tr style="text-align: right;">
+		<th></th>
+		<th>text</th>
+		<th>true</th>
+		<th>pred</th>
+		<th>AskMen</th>
+		<th>AskWomen</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<th>62159</th>
+		<td>My wife walked with her mom.</td>
+		<td>AskWomen</td>
+		<td>AskMen</td>
+		<td>0.998622</td>
+		<td>0.001378</td>
+	</tr>
+	<tr>
+		<th>35101</th>
+		<td>You’re pretty. I want you to meet my wife. 😳</td>
+		<td>AskWomen</td>
+		<td>AskMen</td>
+		<td>0.996958</td>
+		<td>0.003042</td>
+	</tr>
+	<tr>
+		<th>50655</th>
+		<td>On the fourth date, talk about a kid you know ...</td>
+		<td>AskWomen</td>
+		<td>AskMen</td>
+		<td>0.990759</td>
+		<td>0.009241</td>
+	</tr>
+	<tr>
+		<th>62856</th>
+		<td>Girl suggested we go to her room because she w...</td>
+		<td>AskWomen</td>
+		<td>AskMen</td>
+		<td>0.988693</td>
+		<td>0.011307</td>
+	</tr>
+	<tr>
+		<th>60523</th>
+		<td>Don't attack her. Don't touch her. Don't chang...</td>
+		<td>AskWomen</td>
+		<td>AskMen</td>
+		<td>0.986191</td>
+		<td>0.013809</td>
+	</tr>
+	<tr>
+		<th>54460</th>
+		<td>Putting a dick in my mouth I thought if you to...</td>
+		<td>AskWomen</td>
+		<td>AskMen</td>
+		<td>0.984748</td>
+		<td>0.015252</td>
+	</tr>
+	<tr>
+		<th>32986</th>
+		<td>dO yOu EvEn LiFt BrO?</td>
+		<td>AskWomen</td>
+		<td>AskMen</td>
+		<td>0.984536</td>
+		<td>0.015464</td>
+	</tr>
+	<tr>
+		<th>57491</th>
+		<td>i hang out with her more, show her that she is...</td>
+		<td>AskWomen</td>
+		<td>AskMen</td>
+		<td>0.983074</td>
+		<td>0.016926</td>
+	</tr>
+	<tr>
+		<th>47544</th>
+		<td>I got a motorcycle.</td>
+		<td>AskWomen</td>
+		<td>AskMen</td>
+		<td>0.980910</td>
+		<td>0.019090</td>
+	</tr>
+	<tr>
+		<th>43611</th>
+		<td>Off the top of my head, Louis Zamperini’s stor...</td>
+		<td>AskWomen</td>
+		<td>AskMen</td>
+		<td>0.979093</td>
+		<td>0.020907</td>
+	</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[262]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Predicts AskWomen strongly when the answer is AskMen</span>
+<span class="n">wrong</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;AskWomen&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">31</span><span class="p">:</span><span class="mi">40</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[262]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+	.dataframe tbody tr th:only-of-type {
+			vertical-align: middle;
+	}
+
+	.dataframe tbody tr th {
+			vertical-align: top;
+	}
+
+	.dataframe thead th {
+			text-align: right;
+	}
+</style>
+<table border="1" class="dataframe">
+<thead>
+	<tr style="text-align: right;">
+		<th></th>
+		<th>text</th>
+		<th>true</th>
+		<th>pred</th>
+		<th>AskMen</th>
+		<th>AskWomen</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<th>2831</th>
+		<td>My childhood dogs weren't really the best but ...</td>
+		<td>AskMen</td>
+		<td>AskWomen</td>
+		<td>0.032425</td>
+		<td>0.967575</td>
+	</tr>
+	<tr>
+		<th>666</th>
+		<td>Whatever gives me ranged and/or stealthy attacks.</td>
+		<td>AskMen</td>
+		<td>AskWomen</td>
+		<td>0.032550</td>
+		<td>0.967450</td>
+	</tr>
+	<tr>
+		<th>25054</th>
+		<td>TLDR at the end. We threw a party during the h...</td>
+		<td>AskMen</td>
+		<td>AskWomen</td>
+		<td>0.033550</td>
+		<td>0.966450</td>
+	</tr>
+	<tr>
+		<th>16321</th>
+		<td>My parents. They got married because my dad go...</td>
+		<td>AskMen</td>
+		<td>AskWomen</td>
+		<td>0.033714</td>
+		<td>0.966286</td>
+	</tr>
+	<tr>
+		<th>21757</th>
+		<td>My hair. I had really long hair from as long a...</td>
+		<td>AskMen</td>
+		<td>AskWomen</td>
+		<td>0.034704</td>
+		<td>0.965296</td>
+	</tr>
+	<tr>
+		<th>16851</th>
+		<td>I used to think I was a 6 or 7 but then I star...</td>
+		<td>AskMen</td>
+		<td>AskWomen</td>
+		<td>0.034812</td>
+		<td>0.965188</td>
+	</tr>
+	<tr>
+		<th>28535</th>
+		<td>I was the SO that fell out of love with my ex....</td>
+		<td>AskMen</td>
+		<td>AskWomen</td>
+		<td>0.036968</td>
+		<td>0.963032</td>
+	</tr>
+	<tr>
+		<th>2751</th>
+		<td>My hunky and chunky thighs. They feel like steel</td>
+		<td>AskMen</td>
+		<td>AskWomen</td>
+		<td>0.037936</td>
+		<td>0.962064</td>
+	</tr>
+	<tr>
+		<th>27625</th>
+		<td>He has been nothing but helpful through my anx...</td>
+		<td>AskMen</td>
+		<td>AskWomen</td>
+		<td>0.038056</td>
+		<td>0.961944</td>
+	</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Heatmapping-Text-by-Gender-Association-in-Tableau">Heatmapping Text by Gender-Association in Tableau<a class="anchor-link" href="#Heatmapping-Text-by-Gender-Association-in-Tableau">&#182;</a></h1>
+</div>
+</div>
+</div>
+
+<!-- SLIDE TWELVE -->
+<img src="../images/projects/reddit/Slide12.png" width="100%">
+
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Sometimes, in looking at comments that have received very strong gender predictions from the model, one is left wondering what the model is seeing.  The maleness or femaleness of such a comment is usually pretty self-evident, so we have faith that the model is basing its decision on more than just noise. <strong><em>Wouldn't it be great if we could take a comment like this, and visualize what the model is identifying as male or female, just by a glance at the text?</em></strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[319]:</div>
+<div class="inner_cell">
+	<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="k">import</span> <span class="n">RegexpTokenizer</span>
+<span class="n">coefs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/coef_ranks.csv&#39;</span><span class="p">)</span>
+
+<span class="c1">#Copy comment string in here, insert \ before apostrophes</span>
+<span class="n">comment</span> <span class="o">=</span> <span class="s1">&#39;You need to be able to distinguish between a girl that likes the attention youre giving her from a girl that likes you. Most girls at a party will smile and talk to you if you approach them with confidence. After you talk to her though, you need to find a way for her to invest in the interaction. If she never invests in it you never really know what she wants. Walking away from the girl without getting any info is a good way to do this. You started the first conversation, now shes on the spot. If she doesnt come up to you and talk to you again, she isnt getting your number. This forces her to be more than just a receiver of attention. If youre leaving the party, or think you might not see her again at that party. Give her your contact info, dont take any of hers. Shes then forced to reach out to you if she wants things to go anywhere. Not only will this tell you if shes actually interested in you, it will make her more attracted. She will see that you arent desperate, and that makes you more attractive. Girls can sense when the only reason youre talking to them is to get their number or something like that. They can see right through you. When you walk away without the number, she realizes youre not just trying to get her number, you actually just wanted to talk to her. That is attractive&#39;</span>
+
+<span class="c1">#Converts comment to list of lowercase tokens</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">RegexpTokenizer</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w+&#39;</span><span class="p">)</span>
+<span class="n">comment_tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">comment</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+
+<span class="c1">#Creates dataframe with words from comment, in order, with their coefficients</span>
+<span class="n">coef_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">comment_tokens</span><span class="p">)):</span>
+	<span class="n">gram</span> <span class="o">=</span> <span class="n">comment_tokens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="k">try</span><span class="p">:</span>
+			<span class="n">coef</span> <span class="o">=</span> <span class="n">coefs</span><span class="p">[</span><span class="n">coefs</span><span class="p">[</span><span class="s1">&#39;ngram&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">gram</span><span class="p">][</span><span class="s1">&#39;coef&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="k">except</span><span class="p">:</span>
+			<span class="n">coef</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+	<span class="n">coef_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coef</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;gram&#39;</span><span class="p">:</span><span class="n">comment_tokens</span><span class="p">,</span><span class="s1">&#39;coef&#39;</span><span class="p">:</span><span class="n">coef_list</span><span class="p">}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/tableau_data.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can use this in Tableau to create a divergent-color text heatmap of the comment.  We use the ngram column as a dimension on text, and the coefficient column as a measure on color.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="../images/projects/reddit/text-heatmap.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Conclusions-and-Limitations">Conclusions and Limitations<a class="anchor-link" href="#Conclusions-and-Limitations">&#182;</a></h1><h3 id="Additional-Directions">Additional Directions<a class="anchor-link" href="#Additional-Directions">&#182;</a></h3><p>I tried looking at longer comments only (word length &gt; 20), to see how this affected performance.  About 45000 comments met criteria, and classes remained balanced.  After a full GridSearch, the final model had an accuracy score close to 73%, a moderate but definitive improvement.  This isn't surprising, as the shortest comments should be among the hardest to classify.  But it was interesting to see this confirmed, because it suggests that longer text documents may be gender-identifiable with even higher accuracy, at least up to some plateau.</p>
+<p>I also tried predicting whether a comment had over or under 10 upvotes, as a binary classification problem, based on the words and n-grams in the comment. This was interesting in the sense that it might show words to avoid or words to include to try and get upvotes when commenting in one subreddit or the other.  Only about 15% of comments have 10 or more upvotes, so there was a class balance problem.  Bootstrapping up resulted in heavily overfit data, to the point of meaninglessness.  Downsampling regular comments introduced significant bias, reducing me to data sets of about 9000 comments.</p>
+<p>I did see <em>some</em> success with this.  In AskMen, I could only really raise accuracy from 50% to around 54%. But in AskWomen, I was able to raise accuracy over 60%, and the confusion matrix and sensitivity scores looked very reasonable.  Still, I felt that the top coefficient factors were rarely plausible, often dominated by stop words.  My ultimate takeaway was that this was largely grasping at straws, which makes sense - most of upvote score is down to high-level context, not individual words.  I did see modest improvement when I added a gap, and looked at 10+ upvote comments against comments with 1 or fewer upvotes.  This suggests to me that it might be worth going back and attacking the question with regression, using upvotes as a continuous target variable, and preferably with a substantially larger data set.</p>
+<h3 id="Limitations-of-First-Tier-Comments-in-AskMen-and-AskWomen-as-a-Proxy-for-Gender.">Limitations of First-Tier Comments in AskMen and AskWomen as a Proxy for Gender.<a class="anchor-link" href="#Limitations-of-First-Tier-Comments-in-AskMen-and-AskWomen-as-a-Proxy-for-Gender.">&#182;</a></h3><p>Of course, there will be cross-over between the subreddits to a minor degree, with the occasional man responding to an AskWomen question, and vice versa, so a small percentage of our labels will be incorrect.  But there are other limitations to our model.</p>
+<p>Some of the major shortcomings of the model are the result of bias toward the majority and stereotyping. Homosexuality is one example.  Gay men writing about "my husband", "my boyfriend", will be classed as female authors, often with very high certainty.  Women who talk about riding a motorcycle, or who swear aggressively, etc etc, will be classed as male authors.  These examples speak to very valid ethical concerns.  Natural language models trained on large corpora often struggle to avoid biases like these.  We need to be careful about the ways in which we employ models that may reinforce stereotyped perceptions and behaviors.</p>
+<p>The nature of the subreddits themselves can actually create flaws in our gender proxy. To illustrate this, consider the 3-gram <strong>"I'm a girl"</strong> or <strong>"I'm a woman"</strong>.  You might think this would be a slam dunk for the model, but in fact, this phrase is much more likely to be said by someone (a woman) replying to a question <em>in AskMen</em>.  So the model see's "I'm a girl" and correctly predicts AskMen, and because we're using AskMen as a proxy for gender, "I'm a girl" ends up ranking among the factors that we name as indicating male authorship.  In this case, the mistake is obvious, but there may be other mistakes created by the pretenses of the subreddits that are harder to spot.</p>
+<p>I suspect the largest issue is that the subject matter discussed in these subreddits, which is probably often gender-specific, makes the task a bit easier for the model than if we just had a bunch of gender-labeled comments talking about anything and everything.  It also probably throws off what the true most predictive words and ngrams are, because it's more likely that women, for instance, are using the word bra, or husband, or cramps, in this context than in general discussion in other subreddits. I'd be curious to see how the model performs on a gender-labeled data set of comments from all across Reddit, especially to see which word and ngram features maintain or strengthen their influence.</p>
+<h3 id="Final-Thoughts">Final Thoughts<a class="anchor-link" href="#Final-Thoughts">&#182;</a></h3><p>In spite of these limitations, the model definitely brings value.  There were certainly examples, in looking at comments where the model had predicted gender "incorrectly," where the author was in fact a woman posting in AskMen, or a man posting in AskWomen, flagged by the model based on its learning.  It's fair to say that the prevalence of gender-oriented subject matter in these subreddits gave the model extra firepower.  But a surprisingly large number of its leading gender predictors were low-level linguistic signatures that we would expect to be pretty much unconscious.  So I think there <em>is</em> something to the idea that men and women tend towards identifiable linguistic and grammatical patterns in their online writing, and I expect that a model trained over a larger corpus and with creative improvements could be quite effective at attributing authorship by gender, even in these short-form mediums.  What the application of such a model would be, and the ethical concerns around its usage, is another discussion worth having.</p>
+
+</div>
+</div>
+</div>
 	</div>
 </div>
+
 
 
 

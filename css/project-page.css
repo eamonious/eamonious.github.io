@@ -17,6 +17,14 @@ span.heading-meta {
   margin-top: 0;
 }
 
+ul.contents {
+  font-weight: bold;
+}
+
+
+
+
+/* REMOVED ALL INPUT PROMPTS */
 div.input_prompt {
   display: none;
 }
@@ -9447,6 +9455,8 @@ div.out_prompt_overlay:hover {
 }
 div.output_prompt {
   color: #D84315;
+  /* REMOVED ALL */
+  display: none;
 }
 /* This class is the outer container of all output sections. */
 div.output_area {
