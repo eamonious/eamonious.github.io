@@ -8,10 +8,25 @@
   padding-right: 15px;
 }
 
+.colorlib-heading {
+  /*font-size: 18px;*/
+  font-size: 35px;
+  margin-bottom: 1.5em;
+  /*font-weight: 500*/
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.2; }
+
+
 h2.colorlib-heading {
-  margin-bottom: 0;
-  margin-top: 1.5em;
+  margin-bottom: 0.2em;
+  margin-top: 1.2em;
 }
+
+@media (min-width: 480px) {
+    h2.colorlib-heading {
+      margin-bottom: 0; } }
 
 span.heading-meta {
   margin-top: 0;

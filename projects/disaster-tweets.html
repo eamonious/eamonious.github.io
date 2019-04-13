@@ -130,13 +130,24 @@
 
 
 <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
+<div class="container" id="notebook-container">
 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Contents:">Contents:<a class="anchor-link" href="#Contents:">&#182;</a></h3><hr>
+<p>This is a collaborative, client-oriented project that I worked on with <strong><a href="https://www.linkedin.com/in/javier-martinez-abrego/">Javier Martinez</a></strong> and <strong><a href="https://www.linkedin.com/in/alexander-james-nguyen/">Alexander Nguyen</a></strong>, at the request of an organization involved in contracting work for FEMA (Federal Emergency Management Agency).  This work was not compensated, and is not proprietary.</p>
+<p>Our goal in this project was to make initial steps toward designing and implementing a web-tool or an app for tracking developments during a disastrous event, in close to real time.  While traditional methods for alerting on such events rely on official information derived from official sources (e.g. USGS), we were tasked here with attempting to utilize social media activity to identify these events and alert when an event first occurs.  The question we look at primarily here is, given a sea of text content from social media platforms, how do you identify what is relevant information for emergency response personnel?  And what sort of implementation would be valuable?</p>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Contents:">CONTENTS:<a class="anchor-link" href="#Contents:">&#182;</a></h3><hr>
 <ul class="contents">
 <li><a href="#Importing-Libraries">Importing Libraries</a></li>
 <li><a href="#Data-Collection">Data Collection</a></li>
@@ -157,16 +168,7 @@
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This is a collaborative, client-oriented project that I worked on with <strong><a href="https://www.linkedin.com/in/javier-martinez-abrego/">Javier Martinez</a></strong> and <strong><a href="https://www.linkedin.com/in/alexander-james-nguyen/">Alexander Nguyen</a></strong>, at the request of an organization involved in contracting work for FEMA (Federal Emergency Management Agency).  This work was not compensated, and is not proprietary.</p>
-<p>Our goal in this project was to make initial steps toward designing and implementing a web-tool or an app for tracking developments during a disastrous event, in close to real time.  While traditional methods for alerting on such events rely on official information derived from official sources (e.g. USGS), we were tasked here with attempting to utilize social media activity to identify these events and alert when an event first occurs.  The question we look at primarily here is, given a sea of text content from social media platforms, how do you identify what is relevant information for emergency response personnel?  And what sort of implementation would be valuable?</p>
 
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -519,7 +521,7 @@
 <span class="c1">#(i.e., 180000 tweets down the timestamp-sorted ID list), all geotagged tweets in that time</span>
 <span class="c1">#continuous timespan also allows us to show complete minute to minute mapping visualization</span>
 <span class="n">sandy_id_time</span> <span class="o">=</span> <span class="n">dftime</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">4428365</span><span class="p">:</span><span class="mi">4608434</span><span class="p">,:]</span>
-<span class="n">sandy_id_time</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;sandy_train_ids.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sandy_id_time</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/sandy_train_ids.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1113,7 +1115,7 @@
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;sandy_landfall.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/sandy_landfall.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1145,7 +1147,7 @@
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Cleaning Kaggle Data (remove http addresses with regex, lowercase the text)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;figure_eight_dataset.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/figure_eight_dataset.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;http:\/\/.*&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;https:\/\/.*&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">]</span>
@@ -1745,7 +1747,7 @@
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;sandy_landfall.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/sandy_landfall.csv&#39;</span><span class="p">)</span>
 
 <span class="c1">#Cleaning</span>
 <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;text&#39;</span><span class="p">,</span><span class="s1">&#39;created_at&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1805,8 +1807,8 @@
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">disaster_tweets</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;disaster_tweets.csv&#39;</span><span class="p">)</span>
-<span class="n">regular_tweets</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;regular_tweets.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">disaster_tweets</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/disaster_tweets.csv&#39;</span><span class="p">)</span>
+<span class="n">regular_tweets</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/regular_tweets.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1845,7 +1847,7 @@
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Reload disaster tweets with labels now included</span>
-<span class="n">disaster_labeled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./manual_tags_final.csv&#39;</span><span class="p">)</span>
+<span class="n">disaster_labeled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/manual_tags_final.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2291,10 +2293,10 @@ Name: tag, dtype: int64</pre>
 <div class="prompt input_prompt">In&nbsp;[798]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">disaster_labeled</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./disaster_labeled.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">disaster_labeled</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/disaster_labeled.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="n">disaster_labeled</span><span class="p">[</span><span class="n">disaster_labeled</span><span class="p">[</span><span class="s1">&#39;tag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./critical.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">disaster_labeled</span><span class="p">[</span><span class="n">disaster_labeled</span><span class="p">[</span><span class="s1">&#39;tag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./disaster_nonrel.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">disaster_labeled</span><span class="p">[</span><span class="n">disaster_labeled</span><span class="p">[</span><span class="s1">&#39;tag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/critical.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">disaster_labeled</span><span class="p">[</span><span class="n">disaster_labeled</span><span class="p">[</span><span class="s1">&#39;tag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/disaster_nonrel.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2325,7 +2327,7 @@ Name: tag, dtype: int64</pre>
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">weighted</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;weighted_critical.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">weighted</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/weighted_critical.csv&#39;</span><span class="p">)</span>
 
 <span class="c1">#Converts manually assigned weights to bootstrap weighted probabilities</span>
 <span class="n">weighted</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">weighted</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">/</span><span class="n">weighted</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
@@ -2333,7 +2335,7 @@ Name: tag, dtype: int64</pre>
 <span class="n">boot</span> <span class="o">=</span> <span class="n">weighted</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">9000</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weighted</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">])</span>
 <span class="n">boot</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">nonrel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;disaster_nonrel.csv&#39;</span><span class="p">)</span>
+<span class="n">nonrel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/disaster_nonrel.csv&#39;</span><span class="p">)</span>
 <span class="n">nonrel</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">disaster</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">nonrel</span><span class="p">,</span> <span class="n">boot</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -2472,7 +2474,7 @@ Name: tag, dtype: int64</pre>
 <div class="prompt input_prompt">In&nbsp;[551]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sandy_random</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;sandy_random.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sandy_random</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/sandy_random.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2502,17 +2504,8 @@ Name: tag, dtype: int64</pre>
 <div class="prompt input_prompt">In&nbsp;[758]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./alexrandom1.csv&#39;</span><span class="p">)</span>
-<span class="n">test2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./alexrandom2.csv&#39;</span><span class="p">)</span>
-<span class="n">test3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./eamonrandom1.csv&#39;</span><span class="p">)</span>
-<span class="n">test4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./eamonrandom2.csv&#39;</span><span class="p">)</span>
-<span class="n">test5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./eamonrandom3.csv&#39;</span><span class="p">)</span>
-<span class="n">test6</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./javirandom1.csv&#39;</span><span class="p">)</span>
-<span class="n">test7</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./javirandom2.csv&#39;</span><span class="p">)</span>
-<span class="n">test8</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./javirandom3.csv&#39;</span><span class="p">)</span>
-<span class="n">test9</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./javirandom4.csv&#39;</span><span class="p">)</span>
-
-<span class="n">testset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">test1</span><span class="p">,</span><span class="n">test2</span><span class="p">,</span><span class="n">test3</span><span class="p">,</span><span class="n">test4</span><span class="p">,</span><span class="n">test5</span><span class="p">,</span><span class="n">test6</span><span class="p">,</span><span class="n">test7</span><span class="p">,</span><span class="n">test8</span><span class="p">,</span><span class="n">test9</span><span class="p">],</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre>
+<span class="n">testset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/testset.csv&#39;</span><span class="p">)</span>
 
 <span class="n">testset</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;text&#39;</span><span class="p">,</span><span class="s1">&#39;created_at&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -2547,7 +2540,7 @@ Name: tag, dtype: int64</pre>
 <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;http:\/\/.*&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;https:\/\/.*&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
 
-<span class="n">testset</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;testset.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">testset</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/testset.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2583,15 +2576,15 @@ Name: tag, dtype: int64</pre>
 <span class="n">test_disaster</span><span class="p">[</span><span class="s1">&#39;is_critical&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">critical_from_disaster_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_disaster</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">])</span>
 
 <span class="c1">#Save all regular tweets (not disaster related)</span>
-<span class="n">test_regular</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;test_regular.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">test_regular</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/test_regular.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1">#Save all disaster-related tweets that are not relevant</span>
 <span class="n">test_disaster_nonrel</span> <span class="o">=</span> <span class="n">test_disaster</span><span class="p">[</span><span class="n">test_disaster</span><span class="p">[</span><span class="s1">&#39;is_critical&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">test_disaster_nonrel</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;test_disaster_nonrel.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">test_disaster_nonrel</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/test_disaster_nonrel.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1">#Save all tweets that were identified as disaster AND critical</span>
 <span class="n">test_critical</span> <span class="o">=</span> <span class="n">test_disaster</span><span class="p">[</span><span class="n">test_disaster</span><span class="p">[</span><span class="s1">&#39;is_critical&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">test_critical</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;test_critical.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">test_critical</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/test_critical.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2645,11 +2638,9 @@ Name: tag, dtype: int64</pre>
 
 <div class="output_area">
 
-<div class="prompt"></div>
-
-
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>@wwegames @wwe @cmpunk step outside my house and swim in the flood
+<pre>
+@wwegames @wwe @cmpunk step outside my house and swim in the flood
 ----------
 the streets could be flooded and houses could be floating and coach would be like 5:30am practice on main street dress warm
 ----------
@@ -2787,9 +2778,6 @@ in numbers: 27,373 @coned customers in chelsea without power 96,257 in cooper sq
 
 
 <div class="output_area">
-
-<div class="prompt"></div>
-
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>on a day when i am afraid, i will trust you, god -- psalm 56:3 pray for those enduring #hurricane #sandy
@@ -2931,9 +2919,6 @@ everyone stay safe #scbd #hurricanesandy #goodnight
 
 <div class="output_area">
 
-<div class="prompt"></div>
-
-
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>didnt even text me
 ----------
@@ -3035,12 +3020,6 @@ choke my chicken, slap my wanker, a girl lets me watch her with her tits out whe
 ----------
 i wish i had friends to stay up with #sigh
 ----------
-so my apartment is an island right now, the 1st floor is submerged. in for the long haul.
-----------
-@alexe747 maybe ill unfollow you just so you have to get 2 more #jksss gt:
-----------
-man im missing the bad girls club .
-----------
 </pre>
 </div>
 </div>
@@ -3073,7 +3052,7 @@ man im missing the bad girls club .
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This is the portion of Sandy Landfall Tweets (our main pull) that was not labeled </span>
 <span class="c1">#as disaster tweets by either the Figure 8 Model or the Keyword Filtering - so regular tweets.</span>
-<span class="n">regular_tweets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./regular_final.csv&#39;</span><span class="p">)</span>
+<span class="n">regular_tweets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/regular_final.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3380,7 +3359,7 @@ dtype: int64</pre>
 <div class="prompt input_prompt">In&nbsp;[820]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">disaster_labeled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;disaster_labeled.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">disaster_labeled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/disaster_labeled.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3519,7 +3498,7 @@ dtype: int64</pre>
 <div class="prompt input_prompt">In&nbsp;[830]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sandy_combined</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./sandy_combined.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sandy_combined</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/sandy_combined.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3557,7 +3536,7 @@ dtype: int64</pre>
 <div class="prompt input_prompt">In&nbsp;[831]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sandy_geomap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;sandy_combined.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sandy_geomap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/sandy_combined.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3685,7 +3664,7 @@ Name: class, dtype: int64</pre>
 <div class="prompt input_prompt">In&nbsp;[849]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sandy_geomap</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;sandy_geomap.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sandy_geomap</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./csvs/sandy_geomap.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
 </div>

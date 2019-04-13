@@ -297,6 +297,9 @@ figure {
             border: 2px solid #F75940; }
     #colorlib-hero .flexslider .flex-direction-nav {
       display: none; }
+
+/*  --------- INDEX SLIDER EDITS ------------  */
+
     #colorlib-hero .flexslider .slider-text {
       display: table;
       opacity: 0;
@@ -310,32 +313,36 @@ figure {
         position: relative; }
         #colorlib-hero .flexslider .slider-text > .slider-text-inner .desc {
           position: absolute;
-          bottom: 15px;
+          top: 50px;
           left: 0px;
           padding: 30px;
-          padding-right: 40px;
-          background: #000;
-          opacity: 0.7}
+          padding-right: 0px;
+          background: None;
+          opacity: 1}
+
         @media screen and (max-width: 768px) {
-          #colorlib-hero .flexslider .slider-text > .slider-text-inner {
-            text-align: center; } }
+          #colorlib-hero .flexslider .slider-text > .slider-text-inner .desc {
+            position: absolute;
+            top: 100px;
+          } }
         #colorlib-hero .flexslider .slider-text > .slider-text-inner h1, #colorlib-hero .flexslider .slider-text > .slider-text-inner h2 {
           margin: 0;
           padding: 0;
           color: white;
           font-family: "Quicksand", Arial, sans-serif; }
         #colorlib-hero .flexslider .slider-text > .slider-text-inner h1 {
-          margin-bottom: 10px;
-          font-size: 44px;
-          line-height: 1.3;
-          font-weight: 400;
+          margin-bottom: 0px;
+          font-size: 50px;
+          letter-spacing: 3px;
+          line-height: 1;
+          font-weight: 600;
           color: white }
-          @media screen and (max-width: 768px) {
+          @media screen and (max-width: 1118px) {
             #colorlib-hero .flexslider .slider-text > .slider-text-inner h1 {
-              font-size: 28px; } }
+              margin-bottom: 0.3em; } }
         #colorlib-hero .flexslider .slider-text > .slider-text-inner h2 {
-          font-size: 19px;
-          line-height: 1.5;
+          font-size: 30px;
+          line-height: 1.3;
           margin-bottom: 30px;
           font-weight: 300;
           font-family: "Quicksand", Arial, sans-serif; }
@@ -348,6 +355,61 @@ figure {
             #colorlib-hero .flexslider .slider-text > .slider-text-inner .heading-section {
               font-size: 30px; } }
         #colorlib-hero .flexslider .slider-text > .slider-text-inner s
+
+        /*  INDEX SLIDER ORIGINAL STYLING
+            #colorlib-hero .flexslider .slider-text {
+              display: table;
+              opacity: 0;
+              min-height: 500px;
+              z-index: 9; }
+              #colorlib-hero .flexslider .slider-text > .slider-text-inner {
+                display: table-cell;
+                vertical-align: middle;
+                min-height: 700px;
+                padding: 2em;
+                position: relative; }
+                #colorlib-hero .flexslider .slider-text > .slider-text-inner .desc {
+                  position: absolute;
+                  bottom: 15px;
+                  left: 0px;
+                  padding: 30px;
+                  padding-right: 40px;
+                  background: #000;
+                  opacity: 0.7}
+                @media screen and (max-width: 768px) {
+                  #colorlib-hero .flexslider .slider-text > .slider-text-inner {
+                    text-align: center; } }
+                #colorlib-hero .flexslider .slider-text > .slider-text-inner h1, #colorlib-hero .flexslider .slider-text > .slider-text-inner h2 {
+                  margin: 0;
+                  padding: 0;
+                  color: white;
+                  font-family: "Quicksand", Arial, sans-serif; }
+                #colorlib-hero .flexslider .slider-text > .slider-text-inner h1 {
+                  margin-bottom: 10px;
+                  font-size: 44px;
+                  line-height: 1.3;
+                  font-weight: 400;
+                  color: white }
+                  @media screen and (max-width: 768px) {
+                    #colorlib-hero .flexslider .slider-text > .slider-text-inner h1 {
+                      font-size: 28px; } }
+                #colorlib-hero .flexslider .slider-text > .slider-text-inner h2 {
+                  font-size: 19px;
+                  line-height: 1.5;
+                  margin-bottom: 30px;
+                  font-weight: 300;
+                  font-family: "Quicksand", Arial, sans-serif; }
+                  #colorlib-hero .flexslider .slider-text > .slider-text-inner h2 a {
+                    color: rgba(247, 89, 64, 0.8);
+                    border-bottom: 1px solid rgba(247, 89, 64, 0.7); }
+                #colorlib-hero .flexslider .slider-text > .slider-text-inner .heading-section {
+                  font-size: 50px; }
+                  @media screen and (max-width: 768px) {
+                    #colorlib-hero .flexslider .slider-text > .slider-text-inner .heading-section {
+                      font-size: 30px; } }
+                #colorlib-hero .flexslider .slider-text > .slider-text-inner s
+                */
+
 .colorlib-lead {
           font-size: 20px;
           color: #fff; }
@@ -486,11 +548,12 @@ body.offcanvas {
     box-shadow: 0px 35px 78px -23px rgba(0, 0, 0, 0.33); }
 
 .about-desc h3 {
-  font-size: 24px;
+  font-size: 35px;
   text-transform: uppercase;
-  letter-spacing: 5px;
-  font-weight: 500;
+  letter-spacing: 2px;
+  font-weight: 400;
   margin-bottom: 15px; }
+
 
 .fancy-collapse-panel .panel-default > .panel-heading {
   padding: 0; }
