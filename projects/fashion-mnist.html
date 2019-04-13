@@ -129,13 +129,23 @@
 
 
 <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
+<div class="container" id="notebook-container">
 
-			<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-			</div>
-			<div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Convolutional neural networks (CNNs) improve on our ability to extract predictive features from image data, allowing us to classify image objects with greater accuracy.  Here I will walk through some of the underlying principles of regular and convolutional neural networks, and then demonstrate the construction of a CNN in Keras, which I have iteratively tweaked, with the goal of categorizing images of fashion items into appropriate classes with a high degree of accuracy.</p>
+
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+	</div>
+		<div class="inner_cell">
 			<div class="text_cell_render border-box-sizing rendered_html">
-		<!--	<h3 id="Contents:">Contents:<a class="anchor-link" href="#Contents:">&#182;</a></h3><hr> -->
+		<h3 id="Contents:">CONTENTS:<a class="anchor-link" href="#Contents:">&#182;</a></h3><hr>
 			<ul class="contents">
 			<li><a href="#The-Fashion-MNIST-Data-Set">The Fashion-MNIST Data Set</a></li>
 			<li><a href="#Random-Forest,-GradientBoosting-and-SVC:-Reproducing-Results">Random Forest, GradientBoosting and SVC: Reproducing Results</a></li>
@@ -150,9 +160,9 @@
 			</ul>
 			<hr>
 
-			</div>
-			</div>
-			</div>
+		</div>
+	</div>
+</div>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -742,7 +752,7 @@ _________________________________________________________________
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Here we can see how many individuals in each class have been predicted to their correct class, versus predicted to some other class.  Immediately it is clear that there are certain categories that cause most of the error in the model.  The categories "Shirt", "T-shirt/Top", "Coat", "Pullover", and "Dress" - basically anything in the shape of a top - create the majority of confusion.  "Sneaker", "Ankle Boot" and "Sandal" are also mixed up on occasion.  These results are encouraging.  They indicate that the convolutional layers have zeroed in on features that have meaning: categories with similar shape features are occasionally being confused, while more distinct categories are pretty much not.</p>
-<p>One approach that would be an interesting direction here would be to establish a sort of hierarchical neural network system.  So, perhaps a first network which classifies into one of four groups:  tops, footwear, bags, trousers; and then separate networks that train to discriminate between the finer classes that compose the tops and footwear groups, rather than asking a network to train on these differently resolved class differences all at once.</p>
+<p>One approach that would be an interesting direction here would be to establish a sort of hierarchical neural network system.  So, perhaps a first network which classifies into one of four groups:  tops, footwear, bags, trousers; and then separate networks that train to discriminate between the finer classes that compose the tops and footwear groups, rather than asking a network to train on these differently resolved class distinctions all at once.</p>
 
 </div>
 </div>
