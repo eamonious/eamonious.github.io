@@ -138,7 +138,6 @@
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Contents:">Contents:<a class="anchor-link" href="#Contents:">&#182;</a></h3><hr>
 <ul class="contents">
-<li><a href="#Problem-Statement">Problem Statement</a></li>
 <li><a href="#Importing-Libraries">Importing Libraries</a></li>
 <li><a href="#Data-Collection">Data Collection</a></li>
 <li><a href="#Pulling-Tweets-with-Twython">Pulling Tweets with Twython</a></li>
@@ -147,6 +146,7 @@
 <li><a href="#Apply-Filters-to-Generate-List-of-Disaster-Tweets">Apply Filters to Generate List of Disaster Tweets</a></li>
 <li><a href="#Identifying-Critical-Tweets-Among-Disaster-Tweets">Identifying Critical Tweets Among Disaster Tweets</a></li>
 <li><a href="#Testing-2-Phase-Model-{1.-Disaster-Filter,-2.-Predict-Critical}-on-New-Data">Testing 2-Phase Model (1. Disaster Filter, 2. Predict Critical) on New Data</a></li>
+<li><a href="#Results-on-Test-Data">Results on Test Data</a></li>
 <li><a href="#Create-Combined-Landfall-Dataset-with-Class-Labeling">Create Combined Landfall Dataset with Class Labeling</a></li>
 <li><a href="#Geomapping-Landfall-Data-in-Tableau">Geomapping Landfall Data in Tableau</a></li>
 <li><a href="#Live-Streaming-Disaster-Tweets-via-Twython">Live Streaming Disaster Tweets via Twython</a></li>
@@ -161,8 +161,8 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Problem-Statement">Problem Statement<a class="anchor-link" href="#Problem-Statement">&#182;</a></h1><p>In this project we sought to make initial steps toward designing and implementing a web-tool or an app for rapid alert and notification about a disastrous event, in close to real time. The tool ideally would alert about the event, similar, for example, to earthquake or tsunami warnings that appear on Google's home page immediately after a major disaster. While traditional methods for alerting on such events rely on official information derived from official sources (e.g. USGS), this tool will utilize social media activity to identify these events and alert when an event first occurs.</p>
-<p>The question we look at primarily here is, given a sea of text content from social media platforms, how do you identify what is relevant information for emergency response personnel?  And what sort of implementation would be valuable?</p>
+<p>This is a collaborative, client-oriented project that I worked on with <strong><a href="https://www.linkedin.com/in/javier-martinez-abrego/">Javier Martinez</a></strong> and <strong><a href="https://www.linkedin.com/in/alexander-james-nguyen/">Alexander Nguyen</a></strong>, at the request of an organization involved in contracting work for FEMA (Federal Emergency Management Agency).  This work was not compensated, and is not proprietary.</p>
+<p>Our goal in this project was to make initial steps toward designing and implementing a web-tool or an app for tracking developments during a disastrous event, in close to real time.  While traditional methods for alerting on such events rely on official information derived from official sources (e.g. USGS), we were tasked here with attempting to utilize social media activity to identify these events and alert when an event first occurs.  The question we look at primarily here is, given a sea of text content from social media platforms, how do you identify what is relevant information for emergency response personnel?  And what sort of implementation would be valuable?</p>
 
 </div>
 </div>
@@ -177,7 +177,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[556]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -211,7 +211,7 @@
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[557]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
@@ -240,7 +240,7 @@
 <p>Hurricanes, of all disasters, are probably the best-equipped to represent a generalizable lexicon, as hurricanes often involve a combination of flooding, fires, building damage/collapse, sufficient wind to down trees, explosions, injuries, deaths, trapped/stranded individuals, etc.  Obviously, the training data could be expanded to include a variety of disaster types in the future.</p>
 <p>Further Information on the CrisisLex Sandy Tweet ID Dataset:</p>
 <ul>
-<li><a href="https://crisislex.org/data-collections.html#SandyHurricaneGeoT1">CrisisLex: SandyHurricaneGeoT1 Geo-Located tweets from the 2012 Sandy Hurricane</a></li>
+<li><a href="https://crisislex.org/data-collections.html#SandyHurricaneGeoT1"><strong>CrisisLex</strong>: SandyHurricaneGeoT1 Geo-Located tweets from the 2012 Sandy Hurricane</a></li>
 <li>Contents: tweet ids for 6,556,328 tweets, representing all tweets from October 22nd, 2012 —the day Sandy formed— until November 2nd, 2012 — the day that it dissipated.</li>
 <li>Sampling method: tweets were geotagged and located in Washington DC or one of 13 US states affected by Sandy: Connecticut, Delaware, Massachusetts, Maryland, New Jersey, New York, North Carolina, Ohio, Pennsylvania, Rhode Island, South Carolina, Virginia,West Virginia. This filter was based on a set of bounding boxes that covered the desired area, which also covered small parts of adjacent states.</li>
 <li>Labels: no labels. The corpus contains tweets both relevant and irrelevant to Hurricane Sandy (no content based filter was applied).</li>
@@ -539,7 +539,7 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Each of us created Twitter Development accounts and submitted applications for the project.  We each created two sets of <a href="https://developer.twitter.com/en/apply-for-access">Twitter API</a> app keys so that we could pull tweets in tandem to allow for higher volume data collection.</p>
+<p>Each of us created Twitter Development accounts and submitted applications for the project.  We each created two sets of <strong><a href="https://developer.twitter.com/en/apply-for-access">Twitter API</a></strong> app keys so that we could pull tweets in tandem to allow for higher volume data collection.</p>
 
 </div>
 </div>
@@ -1064,7 +1064,7 @@
 <div class="prompt input_prompt">In&nbsp;[63]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sandy</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;####.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sandy</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;example_pull.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1076,7 +1076,7 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We coordinated to split up the job of pulling these loops.  We looped through a total of 180000 tweets from the landfall of Sandy.  We used Google Colab and Google Cloud Computing to run our pull loops over long stretches and collected data into a handful of csvs.</p>
+<p>We coordinated to split up the job of pulling these loops.  We looped through a total of 180000 tweets from the landfall of Sandy.  We used Google Colab and Google Cloud Computing to run our pull loops over long stretches and collected data into a handful of csvs, which we combined to create our main data set for model building.</p>
 
 </div>
 </div>
@@ -1134,21 +1134,7 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>One of the first issues we ran into in approaching our newly collected dataset is scale.  We knew we would have to manually label the critically relevant tweets, however it was unfeasible to search through over 100k tweets to do this.  So how could we whittle the larger body of tweets down to a selection of at least disaster-related tweets that we could then go through manually.</p>
-<p>We discovered a dataset on the website Figure Eight that had also been posted to Kaggle.  It was essentially a dataset of tweets from the time and location of disaster scenarios which had been labeled for disaster-relevant.  So we figured that by training on this dataset first, we could develop a way to whittle our list down to disaster-related tweets.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Readme information
-Datasets:</p>
-<ul>
-<li><a href="https://d1p17r2m4rzlbo.cloudfront.net/wp-content/uploads/2016/03/socialmedia-disaster-tweets-DFE.csv">Figure Eight - Disasters on social media dataset</a>
-Contributors looked at over 10,000 tweets culled with a variety of searches like “ablaze”, “quarantine”, and “pandemonium”, then noted whether the tweet referred to a disaster event (as opposed to a joke with the word or a movie review or something non-disastrous).</li>
-</ul>
+<p>We discovered a dataset on the website Figure Eight that had also been posted to Kaggle.  It was essentially a dataset of tweets from the time and location of recent disaster scenarios which had been labeled for whether they referred to the actual disaster or not.  So we figured that by training on this dataset first, we could develop a way to whittle our list down to at least disaster-related tweets.</p>
 
 </div>
 </div>
@@ -1159,7 +1145,7 @@ Contributors looked at over 10,000 tweets culled with a variety of searches like
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Cleaning Kaggle Data (remove http addresses with regex, lowercase the text)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;kaggle_dataframe_2.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;figure_eight_dataset.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;http:\/\/.*&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;https:\/\/.*&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">]</span>
@@ -1598,45 +1584,6 @@ Contributors looked at over 10,000 tweets culled with a variety of searches like
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="WordCloud:-Words-that-Help-Identify-Disaster-Tweets-from-Regular-Tweets">WordCloud: Words that Help Identify Disaster Tweets from Regular Tweets<a class="anchor-link" href="#WordCloud:-Words-that-Help-Identify-Disaster-Tweets-from-Regular-Tweets">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This was based on coefficients from the Logistic Regression model:</span>
-<span class="n">wordclouddf</span> <span class="o">=</span> <span class="n">feats</span><span class="o">.</span><span class="n">T</span>
-<span class="n">wordclouddf</span> <span class="o">=</span> <span class="n">wordclouddf</span><span class="p">[</span><span class="n">wordclouddf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span>  <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">wordclouddict</span> <span class="o">=</span> <span class="n">wordclouddf</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-
-<span class="n">wordcloud</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span><span class="n">background_color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">generate_from_frequencies</span><span class="p">(</span><span class="n">wordclouddict</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wordcloud</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;bilinear&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="https://i.imgur.com/mmfEg7T.png" alt=""></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Filtering-for-Disaster-Tweets:-Crisis-Words">Filtering for Disaster Tweets: Crisis Words<a class="anchor-link" href="#Filtering-for-Disaster-Tweets:-Crisis-Words">&#182;</a></h1>
 </div>
 </div>
@@ -1645,32 +1592,36 @@ Contributors looked at over 10,000 tweets culled with a variety of searches like
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We were less than completely satisfied with the output of the Kaggle model, and in particular, looking closely at the dataset, felt that some of the labeling was imperfect.  We decided that a keyword list could be useful in further filtering for tweets of disaster relevance.</p>
-<p>We located a long list of words identified as disaster-related keywords on CrisisNLP.org. We imported this list and made some additions that we felt were relevant.</p>
+<p>We were less than completely satisfied with the output of the Kaggle model, and in particular, looking closely at the dataset, felt that some of the labeling was suspect or flat out incorrect.  We had to time-box ourselves to a degree in this project, but we decided that a keyword list could be useful in further filtering for tweets of disaster relevance.  We felt it was better to cast a wider net, as we would be loathe to miss a truly critical tweet.</p>
+<p>We were able to locate a long, standardized list of disaster-related keywords on the <strong><a href="https://crisisnlp.qcri.org/">CrisisNLP</a></strong> website.  We imported this and added some words of our own.  In particular, the CrisisNLP list appeared to be designed for circumstances in which the words are pre-tokenized.  Seeing as we could filter based on the complete tweet texts, we condensed the list somewhat to avoid redundancy.</p>
 
 </div>
 </div>
 </div>
-
-
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[589]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This is where we added words of our own to the existing CrisisNLP list.  This is the list we will use to filter.  </span>
-<span class="c1">#An enterprising user of our model could edit this list themselves very easily:</span>
-<span class="n">keys_slist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;affected&#39;</span><span class="p">,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This is where we added words of our own to the single word items in the existing CrisisNLP list.  </span>
+<span class="c1">#This is the list we will use to filter.  An enterprising user of our model could edit this list themselves very easily:</span>
+<span class="n">keys_slist</span> <span class="o">=</span> <span class="p">[</span>
+ <span class="s1">&#39;911&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;affected&#39;</span><span class="p">,</span>
  <span class="s1">&#39;aftermath&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ambulance&#39;</span><span class="p">,</span>
  <span class="s1">&#39;arrest&#39;</span><span class="p">,</span>
  <span class="s1">&#39;attack&#39;</span><span class="p">,</span>
  <span class="s1">&#39;authorities&#39;</span><span class="p">,</span>
  <span class="s1">&#39;blast&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;blood&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;body&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;bodies&#39;</span><span class="p">,</span>
  <span class="s1">&#39;bomber&#39;</span><span class="p">,</span>
  <span class="s1">&#39;bombing&#39;</span><span class="p">,</span>
  <span class="s1">&#39;braces&#39;</span><span class="p">,</span>
  <span class="s1">&#39;buried&#39;</span><span class="p">,</span>
- <span class="s1">&#39;bushfire&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;burn&#39;</span><span class="p">,</span>
  <span class="s1">&#39;casualties&#39;</span><span class="p">,</span>
  <span class="s1">&#39;cleanup&#39;</span><span class="p">,</span>
  <span class="s1">&#39;collapse&#39;</span><span class="p">,</span>
@@ -1679,7 +1630,7 @@ Contributors looked at over 10,000 tweets culled with a variety of searches like
  <span class="s1">&#39;crash&#39;</span><span class="p">,</span>
  <span class="s1">&#39;crisis&#39;</span><span class="p">,</span>
  <span class="s1">&#39;damage&#39;</span><span class="p">,</span>
- <span class="s1">&#39;dangerous&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;danger&#39;</span><span class="p">,</span>
  <span class="s1">&#39;dead&#39;</span><span class="p">,</span>
  <span class="s1">&#39;deadly&#39;</span><span class="p">,</span>
  <span class="s1">&#39;death&#39;</span><span class="p">,</span>
@@ -1694,16 +1645,17 @@ Contributors looked at over 10,000 tweets culled with a variety of searches like
  <span class="s1">&#39;drown&#39;</span><span class="p">,</span>
  <span class="s1">&#39;emergency&#39;</span><span class="p">,</span>
  <span class="s1">&#39;enforcement&#39;</span><span class="p">,</span>
- <span class="s1">&#39;evacuated&#39;</span><span class="p">,</span>
- <span class="s1">&#39;evacuees&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;evacu&#39;</span><span class="p">,</span>
  <span class="s1">&#39;events&#39;</span><span class="p">,</span>
  <span class="s1">&#39;explosion&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;fallen&#39;</span><span class="p">,</span>
  <span class="s1">&#39;fatalities&#39;</span><span class="p">,</span>
- <span class="s1">&#39;firefighters&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;fire&#39;</span><span class="p">,</span>
  <span class="s1">&#39;flood&#39;</span><span class="p">,</span>
  <span class="s1">&#39;flooding&#39;</span><span class="p">,</span>
  <span class="s1">&#39;floodwaters&#39;</span><span class="p">,</span>
  <span class="s1">&#39;footage&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;gun&#39;</span><span class="p">,</span>
  <span class="s1">&#39;help!&#39;</span><span class="p">,</span>
  <span class="s1">&#39;hurricane&#39;</span><span class="p">,</span>
  <span class="s1">&#39;imminent&#39;</span><span class="p">,</span>
@@ -1712,19 +1664,20 @@ Contributors looked at over 10,000 tweets culled with a variety of searches like
  <span class="s1">&#39;injuries&#39;</span><span class="p">,</span>
  <span class="s1">&#39;inundated&#39;</span><span class="p">,</span>
  <span class="s1">&#39;investigation&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;killed&#39;</span><span class="p">,</span>
  <span class="s1">&#39;landfall&#39;</span><span class="p">,</span>
  <span class="s1">&#39;levy&#39;</span><span class="p">,</span>
  <span class="s1">&#39;looting&#39;</span><span class="p">,</span>
  <span class="s1">&#39;magnitude&#39;</span><span class="p">,</span>
  <span class="s1">&#39;massive&#39;</span><span class="p">,</span>
  <span class="s1">&#39;military&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;missing&#39;</span><span class="p">,</span>
  <span class="s1">&#39;nursing&#39;</span><span class="p">,</span>
  <span class="s1">&#39;outage&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;paramedic&#39;</span><span class="p">,</span>
  <span class="s1">&#39;prayers&#39;</span><span class="p">,</span>
  <span class="s1">&#39;praying&#39;</span><span class="p">,</span>
  <span class="s1">&#39;ravaged&#39;</span><span class="p">,</span>
- <span class="s1">&#39;rebuild&#39;</span><span class="p">,</span>
- <span class="s1">&#39;rebuilt&#39;</span><span class="p">,</span>
  <span class="s1">&#39;recede&#39;</span><span class="p">,</span>
  <span class="s1">&#39;recover&#39;</span><span class="p">,</span>
  <span class="s1">&#39;redcross&#39;</span><span class="p">,</span>
@@ -1736,8 +1689,13 @@ Contributors looked at over 10,000 tweets culled with a variety of searches like
  <span class="s1">&#39;rubble&#39;</span><span class="p">,</span>
  <span class="s1">&#39;saddened&#39;</span><span class="p">,</span>
  <span class="s1">&#39;safety&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;scream&#39;</span><span class="p">,</span>
  <span class="s1">&#39;seismic&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;seizure&#39;</span><span class="p">,</span>
  <span class="s1">&#39;shelter&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;shooter&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;shooting&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;shot&#39;</span><span class="p">,</span>
  <span class="s1">&#39;soldier&#39;</span><span class="p">,</span>
  <span class="s1">&#39;storm&#39;</span><span class="p">,</span>
  <span class="s1">&#39;stream&#39;</span><span class="p">,</span>
@@ -2379,6 +2337,8 @@ Name: tag, dtype: int64</pre>
 <span class="n">nonrel</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">disaster</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">nonrel</span><span class="p">,</span> <span class="n">boot</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#So now we have a training set composed of roughly equal classes - half are irrelevant disaster-related tweets, </span>
+<span class="c1">#and the other half are critical tweets that have been bootstrapped with weights to appear multiple times.</span>
 </pre></div>
 
 </div>
@@ -2411,7 +2371,7 @@ Name: tag, dtype: int64</pre>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">disaster</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">disaster</span><span class="p">[</span><span class="s1">&#39;tag&#39;</span><span class="p">]</span>
 
-<span class="n">disaster_model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+<span class="n">critical_from_disaster_model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
         <span class="p">(</span><span class="s1">&#39;count_vect&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">min_df</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                                   <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))),</span>
         <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">VotingClassifier</span><span class="p">(</span><span class="n">estimators</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;pip1&quot;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)),</span>
@@ -2419,7 +2379,7 @@ Name: tag, dtype: int64</pre>
                                   <span class="p">(</span><span class="s2">&quot;pip3&quot;</span><span class="p">,</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">))]</span>
                                     <span class="p">,</span><span class="n">voting</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">))</span>
          <span class="p">])</span>
-<span class="n">disaster_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">critical_from_disaster_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2449,6 +2409,15 @@ Name: tag, dtype: int64</pre>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src="https://i.imgur.com/FL6iEue.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Obviously the words here are somewhat specific to the Sandy Hurricane, which we would expect.  Continuing to train with a wider variety of disasters (wildfires, tornadoes, mass shootings, earthquakes, etc - even everyday emergencies perhaps) would allow the model to become more generalized.</p>
 
 </div>
 </div>
@@ -2542,45 +2511,12 @@ Name: tag, dtype: int64</pre>
 <span class="n">test7</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./javirandom2.csv&#39;</span><span class="p">)</span>
 <span class="n">test8</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./javirandom3.csv&#39;</span><span class="p">)</span>
 <span class="n">test9</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./javirandom4.csv&#39;</span><span class="p">)</span>
-</pre></div>
 
-</div>
-</div>
-</div>
+<span class="n">testset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">test1</span><span class="p">,</span><span class="n">test2</span><span class="p">,</span><span class="n">test3</span><span class="p">,</span><span class="n">test4</span><span class="p">,</span><span class="n">test5</span><span class="p">,</span><span class="n">test6</span><span class="p">,</span><span class="n">test7</span><span class="p">,</span><span class="n">test8</span><span class="p">,</span><span class="n">test9</span><span class="p">],</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[759]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">testset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">test1</span><span class="p">,</span><span class="n">test2</span><span class="p">,</span><span class="n">test3</span><span class="p">,</span><span class="n">test4</span><span class="p">,</span><span class="n">test5</span><span class="p">,</span><span class="n">test6</span><span class="p">,</span><span class="n">test7</span><span class="p">,</span><span class="n">test8</span><span class="p">,</span><span class="n">test9</span><span class="p">],</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
+<span class="n">testset</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;text&#39;</span><span class="p">,</span><span class="s1">&#39;created_at&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[760]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">testset</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;text&#39;</span><span class="p">,</span><span class="s1">&#39;created_at&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[761]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">testset</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="n">testset</span><span class="p">[</span><span class="s1">&#39;lang&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;en&#39;</span><span class="p">]</span>
+<span class="n">testset</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="n">testset</span><span class="p">[</span><span class="s1">&#39;lang&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;en&#39;</span><span class="p">]</span>
 
 <span class="c1">#create readable datetime column and sort by datetime</span>
 <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">testset</span><span class="p">[</span><span class="s1">&#39;created_at&#39;</span><span class="p">])</span>
@@ -2605,19 +2541,8 @@ Name: tag, dtype: int64</pre>
 <span class="n">testset</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-</pre></div>
 
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[763]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;[^\w\s#@/:%.,_-]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
+<span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;[^\w\s#@/:%.,_-]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
 <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
 <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;http:\/\/.*&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;https:\/\/.*&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
@@ -2634,7 +2559,7 @@ Name: tag, dtype: int64</pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Running-the-Filter/Models-on-the-Test-Data">Running the Filter/Models on the Test Data<a class="anchor-link" href="#Running-the-Filter/Models-on-the-Test-Data">&#182;</a></h3>
+<h3 id="Running-the-Filter/Models-on-the-Test-Data-to-Identify-Critical-Tweets">Running the Filter/Models on the Test Data to Identify Critical Tweets<a class="anchor-link" href="#Running-the-Filter/Models-on-the-Test-Data-to-Identify-Critical-Tweets">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -2643,52 +2568,483 @@ Name: tag, dtype: int64</pre>
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Run Figure 8 model and separate into non-predicted and disaster tweets.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Run Figure 8 model and separate into regular and disaster tweets.</span>
 <span class="n">testset</span><span class="p">[</span><span class="s1">&#39;is_disaster&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">kaggle_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">testset</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">])</span>
-<span class="n">regular_test</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="n">testset</span><span class="p">[</span><span class="s1">&#39;is_disaster&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">disaster_test</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="n">testset</span><span class="p">[</span><span class="s1">&#39;is_disaster&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">test_regular</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="n">testset</span><span class="p">[</span><span class="s1">&#39;is_disaster&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">test_disaster</span> <span class="o">=</span> <span class="n">testset</span><span class="p">[</span><span class="n">testset</span><span class="p">[</span><span class="s1">&#39;is_disaster&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
 
-<span class="c1">#Apply keyword filter to non-predicted to identify additional disaster tweets, and combine to collect all disaster tweets</span>
-<span class="n">regular_test</span><span class="p">[</span><span class="s1">&#39;is_disaster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">regular_test</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">keys_slist</span><span class="p">])</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">keywords</span> <span class="o">=</span><span class="n">regular_test</span><span class="p">[</span><span class="n">regular_test</span><span class="p">[</span><span class="s1">&#39;is_disaster&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">disaster_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">keywords</span><span class="p">,</span><span class="n">disaster_test</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#Apply keyword filter to tweets identified as regular by Figure 8</span>
+<span class="c1">#to identify additional disaster tweets, and combine to collect all disaster tweets</span>
+<span class="n">test_regular</span><span class="p">[</span><span class="s1">&#39;is_disaster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_regular</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">keys_slist</span><span class="p">])</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">contains_keywords</span> <span class="o">=</span> <span class="n">test_regular</span><span class="p">[</span><span class="n">test_regular</span><span class="p">[</span><span class="s1">&#39;is_disaster&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">test_disaster</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">contains_keywords</span><span class="p">,</span><span class="n">test_disaster</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1">#Run Critical Tweet Identifier model on disaster tweets</span>
-<span class="n">disaster_test</span><span class="p">[</span><span class="s1">&#39;critical&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">disaster_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">disaster_test</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">])</span>
+<span class="n">test_disaster</span><span class="p">[</span><span class="s1">&#39;is_critical&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">critical_from_disaster_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_disaster</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">])</span>
 
-<span class="c1">#Review each class</span>
-<span class="n">critical</span> <span class="o">=</span> <span class="n">disaster_test</span><span class="p">[</span><span class="n">disaster_test</span><span class="p">[</span><span class="s1">&#39;critical&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">disaster</span> <span class="n">nonrel</span> <span class="o">=</span> <span class="n">disaster_test</span><span class="p">[</span><span class="n">disaster_test</span><span class="p">[</span><span class="s1">&#39;critical&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">regular</span> <span class="o">=</span> <span class="n">regular_test</span><span class="p">[</span><span class="n">regular_test</span><span class="p">[</span><span class="s1">&#39;is_disaster&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1">#Save all regular tweets (not disaster related)</span>
+<span class="n">test_regular</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;test_regular.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1">#Save all disaster-related tweets that are not relevant</span>
+<span class="n">test_disaster_nonrel</span> <span class="o">=</span> <span class="n">test_disaster</span><span class="p">[</span><span class="n">test_disaster</span><span class="p">[</span><span class="s1">&#39;is_critical&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">test_disaster_nonrel</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;test_disaster_nonrel.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1">#Save all tweets that were identified as disaster AND critical</span>
+<span class="n">test_critical</span> <span class="o">=</span> <span class="n">test_disaster</span><span class="p">[</span><span class="n">test_disaster</span><span class="p">[</span><span class="s1">&#39;is_critical&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">test_critical</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;test_critical.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Results-on-Test-Data">Results on Test Data<a class="anchor-link" href="#Results-on-Test-Data">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Out of the 25000 or so tweets in the test set, our two-phase model identified about 50 as potentially critical tweets.  You can review these below.  Given the limitations we had to work with in terms of bootstrapping, and simply not having that much data for the problem, we were quite pleased with the performance here.  Most of the tweets identified as critical do seem to correspond to situations where the hurricane is actively creating immediate problems.</p>
+<p>Comparing this to a selection of the non-relevant disaster tweets, or the regular tweets (seen below), we can see that the model is actually doing a pretty excellent job of homing in on real issues and ignoring other mentions of the storm.  This is a pretty remarkable result, and we have reason to expect that there is still a lot of potential for the model to improve, with an appropriately large and diverse data set.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Tweets-That-Were-Identified-as-Critical">Tweets That Were Identified as Critical<a class="anchor-link" href="#Tweets-That-Were-Identified-as-Critical">&#182;</a></h3>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#show results (I.E. disaster non-relevant and disaster critical results) side by side....</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_critical</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>@wwegames @wwe @cmpunk step outside my house and swim in the flood
+----------
+the streets could be flooded and houses could be floating and coach would be like 5:30am practice on main street dress warm
+----------
+everywhere is flooded
+----------
+awesome my street is flooded..
+----------
+im alive no damage either a tree across the street broke. we have power
+----------
+the remains of the tree that fell on tracks by stony brook yesterday, was mostly dead already.
+----------
+no tree damage this morning @ mcdevitt field. the field is ok, just several leaves amp small branches down.
+----------
+@primetime_lerch @realfrankgeib24 @abegotwheels @a_stump_ swimming through the flooded half of red tail
+----------
+dragon #sandy ripped off roof #alexandria apt. building so loud, child thought it was a dragon no injuries @wusa9
+----------
+ rt @dopeasjordan: a wire just exploded outside on my block and electrocuted and set a dog on fire, w o w.
+----------
+woke up w no power just candles on couldnt text or make calls or use data lights out everywhere trees down felt like i was in #walkingdead
+----------
+creek road and 926 flooded #wcugis
+----------
+flooded fdr #sandy #frankenstorm @bsheridan  @ fdr drive
+----------
+whats left of our cherry tree... #hurricanesandy #picfx @ casa de urena
+----------
+my next door neighbors tree is threatening to kill our electricity #hurricanesandy
+----------
+welcome to l-town #hurricanesandy #boat #in #a #tree  @ water logged l-town
+----------
+fire on my street. geeze. probably the wesley kids. ahaha. #justassuming
+----------
+wait jones beach theater is flooded, it better be ready for one direction this summer
+----------
+tree down on carroll st. right in front of where that brownstone collapsed earlier this year.
+----------
+drove around town to see the damage amp where all these power company trucks are its bad up here. power company gets de
+----------
+520 steps to my powerless 26th floor apartment, just 12 steps to my powerful recover @ 46th street clubhouse
+----------
+@joshelliottabc live across the street from hospital 1st ave and 33rd flooded
+----------
+tree on house after sandy. no damage inside. thank god.
+----------
+lots of trees down in prospect park #sandy  @ prospect park west
+----------
+@fdny: qns 6-6 breezy point fire, 50 homes completely destroyed by fire ouch....
+----------
+front of building destroyed by sandy: a chelsea building near the corner of 8th amp w. 14th st. partially...
+----------
+@shawnmichaels 2 straight days off, 2 confirmed deaths in baltimore, md. 200,000 no power. #222 #sandy
+----------
+still no power at hemlock and spruce st in north andover, #nationalgrid #sandy
+----------
+river flooding 71st street @ bobby wagner walk
+----------
+access to hoboken from jersey city next to impossible. grove street. marin blvd., jersey ave flooded.
+----------
+in the movie 2012 nyc floods... nyc is flooded right now #freaky
+----------
+@severnaprkpatch tree hit house in berrywood south
+----------
+@jzanetti25 a tree fell on the house and killed two kids
+----------
+destruction around coned, the water actually moved cars around in the street. @ coned 750 east 16 street
+----------
+flood warning issued for glen burnie, md
+----------
+trees down in central park. #sandy  @ rustic overlook
+----------
+#sandy update: no power, cell, or landline service in huntington station, #longisland since 4pm yesterday. trees partially blocking roads
+----------
+tree blocking street in wantagh, ny #sandy
+----------
+tree in the middle of pierce rd #sandy2012  @ pierce rd
+----------
+@sandrabookman7 heres a tree down shot, taken at murdock n neried
+----------
+major tree damage in theodore roosevelt park. #ues #sandynyc  @ theodore roosevelt park museum park
+----------
+bloomberg: zone a evacuation order is in effect until all clear from building inspectors, which has not happened yet.
+----------
+@newzphotos grant rd tree on a car also...three calls
+----------
+downed trees across lubber street at quaker path in stony brook, n.y. @ quaker path
+----------
+just passed a massive tree down on the grounds of the museum of natural history. audible gasp from the unusually quiet bus passengers.
+#nyc
+----------
+water street flooded :/ hurricane sandy can suck it : #hurricane #hurricanesandy #water #s @ long warf park
+----------
+stay away from east avenue and wall street truck just took out all power line
+----------
+closed dirty alley or street request at 2217 etting st baltimore
+----------
+in numbers: 27,373 @coned customers in chelsea without power 96,257 in cooper square 21,281 in kips bay, for starters. #sandy
+----------
+#wellington closed due to flooding on rt 18 both eb/wb between sr 58 and oh-301 #traffic
+----------
+#cuyahoga closed due to flooding on w 150th st north of i 480 #traffic
+----------
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Tweets-That-Were-Identified-as-Disaster-Related-but-Not-Critical">Tweets That Were Identified as Disaster Related but Not Critical<a class="anchor-link" href="#Tweets-That-Were-Identified-as-Disaster-Related-but-Not-Critical">&#182;</a></h3>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Remark on how the results were actually quite satisfying</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_disaster_nonrel</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>on a day when i am afraid, i will trust you, god -- psalm 56:3 pray for those enduring #hurricane #sandy
+----------
+fuck #hurricanesandy
+----------
+... just spent 2 hours chillin in my car. now im back in the house praying my phone lasts me the whole night lmao i hate not having power
+----------
+@kmbutler4 like the wizard of oz lol i really meant kansas remember the tornado and the flying monkeys lol
+----------
+@annanicolexxo i will when she gets back from the tests. im having a mini orgasm because im in an emergency room gt.lt
+----------
+@verizonwireless boy you guys are gonna hear it tomorrow when this hurricane is over...
+----------
+@steve_whosoever @joshuanason hi steve, joshua is from ri, im from pa. im sure youve been through a lot of hurricanes living on the gulf
+----------
+@allen_strk: really excited to see how the teams play out for survivor series. they suck
+----------
+the real risks from hurricane #sandy:
+----------
+so im without electricity and very limited service. a prayer to everyone who is being affected or has been affected badly.
+----------
+i dont know whats worse this damn storm or my brothers snoring #fml
+----------
+@msoblount: @princephillyock working in the dark at arcadia university ...persevering through the hurricane . love my son
+----------
+this one time, at hurricane camp, i stuck a package of ramen noodles in
+my vagina #fucksandy #survival
+----------
+getting thru the blackout #hurricanesandy caused here in #nyc  with the help of @arminvanbuurens @djmagazine 2012 awards set #trancefamily
+----------
+power outages: one more pragmatic reason to be #vegan. #lessfunkyfridgeforthewin #sandy
+----------
+@dailydeadnews evil dead remake looks intense. im excited bout carrie. but thoughts on lords of salem trailer was, ehhhh...
+----------
+@aaronwanat yes its a hurricane that hasnt really affected western ny but the bigger cities
+----------
+hoodlums #troublemakers #introuble #hurricanesandy  @ weldin hall
+----------
+praying for everyone at #nyu hospital. #sandy
+----------
+uff, so much bad news. i feel like were sitting pretty while the rest of the city burns/floods. you can do it, new york
+----------
+next hurricane should be called hurricane taylor sounds cute : hehe
+----------
+#NAME?
+----------
+@madmaxjr_ man stfu with that dead shit
+----------
+want to sleep with my window open, but the wind is going crazy #hurricaneproblems
+----------
+through this freak storm i still find something to make me relaxed and smile @jcovv @kpod23 see you two thanksgiving
+----------
+this big bad hurricane had better at least knock out the power at rio, because im not feeling class tomorrow #dontlikethecold
+----------
+@kasiyan93 its not that would be a tragedy calllin it tho
+----------
+thanks for all the well wishes, plz know i am in a low risk area and many around me could use prayers more. lt3 @andrewneylon @ericneedleman
+----------
+dear hurricane sandy,
+can you take obama with you
+sincerely, smart americans
+----------
+waiting for the power to go out. @ frankenstorm apocalypse - hurricane sandy w/ 404 others
+----------
+@nbfirefighter90 your such a tard
+----------
+you will never find new yorks times square so empty -ever #hurricane sandy# at times square pic
+----------
+pokemon song/britney sing-a-long, apples to apples, and destroying our beer supply #survival #sandy #frankenstorm @kimmiefg @krystinlemieux
+----------
+@stephgrillz angy poooos house is getting destroyed
+----------
+power. i want it. #frankenstorm
+----------
+the hurricane sandy twitter parody is terrible
+----------
+@billycury: top 3 fav games this week: borderlands 2, the walking dead, skyrim dusted it off #billystopgames #woohwaah
+----------
+storms are creepy i need my bella
+----------
+sandbags in place at the 205 north location. praying that all of that was unnecessary. #noflood
+----------
+enjoying my power outage evening. thank for a roof over my head.
+----------
+blasting @hardwell #thecreator
+----------
+@sorrynotsoorry we arent allowed to drive unless its an emergency.
+----------
+@willwilkinson: no valid government-issued picture id, no rescue. but you cant buy cigarrettes without an id, so ....
+----------
+thoughts are with staff amp 200 patients evacuating nyu hospital after generator failure. #hurricanesandy #nyc
+----------
+this hurricane wasnt even bad
+----------
+the walking dead is 75% off at @steam_games get it before nov 1
+----------
+@ladygaga thanks so much for ur prayers still have a long way to go with storm just hanging in there love you
+----------
+i hope everyones okay during this storm. my power went out but have the generator goiing.
+----------
+to bad hurricane sandy wasnt big enough to wipeout the whole world.
+----------
+everyone stay safe #scbd #hurricanesandy #goodnight
+----------
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Tweets-That-Were-Identified-as-Regular,-Non-Disaster">Tweets That Were Identified as Regular, Non-Disaster<a class="anchor-link" href="#Tweets-That-Were-Identified-as-Regular,-Non-Disaster">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_regular</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>didnt even text me
+----------
+i dont understand bitch
+----------
+@marylandprobz i gotta get one of those where can i
+----------
+couldnt be more excited
+----------
+@hitmanholla @scizas word stone cold.open a can of whip ass on dat boy and dump budweiser on him after it...lol
+----------
+ride or die .. we gon make it out this hood
+----------
+i dont understand bitch lol
+----------
+knock knock bitch im in the house now whats up
+----------
+@rm9_era lmao why you wanna do that haha
+----------
+i just messaged you cause i was bored yea im sure thats the reason
+----------
+@kweadilovewale yo ijus turned my phone on. my power is out so im tryin save battery
+----------
+@_percyyy good one -_-
+----------
+listening to @brothalynchhung season of da siccness right now.
+----------
+@mikepereira would he be considered a defenseless receiver
+----------
+just went outside to check out sandy, pretty scary stuff, trees on top of cars etc.
+----------
+#100thingsaboutme if i could wear a tiedye shirt and sweats every single day of my life, you had better believe i would.
+----------
+@leeeexis @xburke13x  omggg.. where are these pics
+----------
+@classictwenty3 he makes me upset
+----------
+@rookiewriter8 seems like hk is the safest place to be tonight #sandy
+----------
+how tf you accidentally vote for romney  lol
+----------
+, she a lil bop
+----------
+laid 3 little angels down to bed, i just pray demons dont wake up in there places  for school tomorrow lol help aunt jesse lol
+----------
+@kradick22 im not complaining it was a simple tweet
+----------
+@darth_talbert its going on right now lol
+----------
+@halenspencer yes and the boys :
+----------
+@xxjransom2xx @thagavster youre damn right just the thought of you coming here gets me rock solid.
+----------
+the haves and the have nots in manhattan. the view from my blacked out hotel room on west 16th.
+----------
+sandy turn off de lights
+----------
+hearing that nyc has plunged into darkness puts my stomach in a knot
+----------
+her leo self better not take advantage of his pisces kindness
+----------
+its crazy how bored a person can get from doing absolutely nothing
+----------
+@burnymacc @roxinoel94 i love my jack haha
+----------
+lets just pretend that this was all just a dream.
+----------
+i didnt change. you just never knew me.
+----------
+temp: 39.7f  wind:n at 8.7kts barometer: 992.2mb and falling quickly rain since midnight: 1.29in relative humidity: 95%  #wvwx
+----------
+@jboochh high tides over water should be receding now  good to know everyones safe
+----------
+i cant let these little things slip out of my mouth... cause its you, oh its you, its you they add up tolt3
+----------
+guess its time to go to bed now.  hopefully the power will be back soon.
+----------
+@mgee_x3  family guyyyyy
+----------
+@katie_newport @allisonrockey yay were good. were having a brown out-low flickering lights. its like 1873 up here.
+----------
+please think before you speak
+----------
+eff too bad this episode was on the other night
+----------
+@23solesandhoes she not ugly tho
+----------
+fail.
+----------
+she gonna say im late
+----------
+one ice down.... one to go #drunkyyyy
+----------
+@boxing he should rematch quartey, tito, or mosley.
+----------
+@johnpattwell yeah same, now we need to drink cause ive got nothing else to do
+----------
+choke my chicken, slap my wanker, a girl lets me watch her with her tits out when im spankin then i thank her
+----------
+i wish i had friends to stay up with #sigh
+----------
+so my apartment is an island right now, the 1st floor is submerged. in for the long haul.
+----------
+@alexe747 maybe ill unfollow you just so you have to get 2 more #jksss gt:
+----------
+man im missing the bad girls club .
+----------
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -2705,8 +3061,7 @@ Name: tag, dtype: int64</pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>One alternative that we considered, with our manual tags done, would simply be to add regular tweets back in and train on the entire sea of tweets, regular and disaster related, trying to pick out only the actually relevant tweets from everything.  We felt this would be less powerful than using a second phase to specifically discriminate actually relevant tweets from non-relevant disaster-related tweets.  But we may want to try this at some point.  It does have the advantage of condensing the predictive process into a single step.</p>
-<p>Even without this application though, it's necessary for us to build out a cleaned, combined dataset to be able to visualize a geo-map where we can easily represent disaster and critical tweets amid the sea of all tweets.</p>
+<p>We wanted to build out a cleaned, combined dataset of our Sandy landfall tweets to be able to use the geo-tags we have to build a map where we can easily represent how disaster and critical tweets can be visualized amid the sea of all tweets.  For this we are returning to our main data set.</p>
 
 </div>
 </div>
@@ -2716,8 +3071,8 @@ Name: tag, dtype: int64</pre>
 <div class="prompt input_prompt">In&nbsp;[813]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This is the set of Sandy Landfall Tweets (our main pull) that was not labeled </span>
-<span class="c1">#as disaster tweets by either the Figure 8 Model or the Keyword Filtering</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#This is the portion of Sandy Landfall Tweets (our main pull) that was not labeled </span>
+<span class="c1">#as disaster tweets by either the Figure 8 Model or the Keyword Filtering - so regular tweets.</span>
 <span class="n">regular_tweets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./regular_final.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -3623,10 +3978,11 @@ Name: class, dtype: int64</pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Our primary takeaways in this project thus far are as follows:</p>
-<p>Despite initial setbacks, we were able to arrive at a satisfying and effective two-phase process for identifying critical disaster tweets out of the sea of all incoming tweets on social media. We were pleased with how well we were able to isolate potentially relevant tweets from a sea of test data. We also successfully visualized what an interface for receiving geotagged tweets in real-time might look like, although we expect a more integrated and multi-functional mapping software than Tableau might be necessary for real-world implementation. Finally, we were able to demonstrate proof-of-concept on live-streaming capture of tweets.</p>
-<p>Given unrestricted access to the data available via Twitter, let alone Facebook, Snapchat, Instagram (all of which FEMA or a similar organization would likely have in the hypothetical scenario where they would implement this process), I feel we have demonstrated that it would be absolutely possible to build out a very useful and accurate geo-feed of emergency response information in the area of an ongoing disaster.</p>
-<p>All of this bodes well for future expansion of the project. Other directions we might go with more time include attempting to involve another social media platform, or locate a database of tweets from a disaster scenario other than a hurricane to try and diversify our filtering process. We also would like to try and improve predictive accuracy by use of Words2Vec, which is well equipped to locate similar types of tweets (e.g. critical tweets) without explicit labeling.</p>
+	<p>Our primary takeaways in this project thus far are as follows:</p>
+	<p>Despite initial setbacks, we were able to arrive at a satisfying and effective two-phase process for identifying critical disaster tweets out of the sea of all incoming tweets on social media. We were pleased with how well we were able to isolate potentially relevant tweets from a sea of test data. We also successfully visualized what an interface for receiving geotagged tweets in real-time might look like, although we expect a more integrated and multi-functional mapping software than Tableau might be necessary for real-world implementation. Finally, we were able to demonstrate proof-of-concept on live-streaming capture of tweets.</p>
+	<p>Given unrestricted access to the data available via Twitter, let alone Facebook, Snapchat, Instagram (all of which FEMA or a similar organization would likely have in the hypothetical scenario where they would implement this process), I feel we have demonstrated that it would be absolutely possible to build out a very useful and accurate geo-feed of emergency response information in the area of an ongoing disaster.</p>
+	<p>An ideal implementation perhaps would be to continually label critical tweets after the fact and progressively train for different types of emergency tweets over many documents and events.  Emergency personnel whose job it is to review the incoming tweets that the existing model has identified as critical could also be tasked with manually labeling the identified tweets as truly critical or not as they come in, with this labeling feeding back into actively improving the performance of the model as time goes on.  With enough development, we could reach a point where we have specialized models for different disaster types, which emergency personnel could turn on as appropriate once a disaster scenario is live.</p>
+	<p>All of this bodes well for future expansion of the project. Other directions we might go with more time include attempting to involve another social media platform, or locate a database of tweets from a disaster scenario other than a hurricane to try and diversify our filtering process. We also would like to try and improve predictive accuracy by use of Words2Vec, which is well equipped to locate similar types of tweets (e.g. critical tweets) without explicit labeling.</p>
 
 </div>
 </div>
