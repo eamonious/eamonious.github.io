@@ -275,10 +275,7 @@ figure {
         background-position: bottom center;
         min-height: 400px;
         position: relative; }
-        @media screen and (max-width: 480px) {
-          #colorlib-hero .flexslider .slides li {
-            background-position: bottom center;
-        } }
+      
     #colorlib-hero .flexslider .flex-control-nav {
       bottom: 20px;
       z-index: 1000;
