@@ -252,7 +252,7 @@ figure {
       width: 100%; } }
 
 #colorlib-hero {
-  min-height: 500px;
+  min-height: 736px; /*was 500 */
   background: #fff url(../images/loader.gif) no-repeat center center;
   width: 100%;
   float: left;
@@ -275,7 +275,7 @@ figure {
         background-position: bottom center;
         min-height: 400px;
         position: relative; }
-      
+
     #colorlib-hero .flexslider .flex-control-nav {
       bottom: 20px;
       z-index: 1000;
@@ -304,12 +304,12 @@ figure {
     #colorlib-hero .flexslider .slider-text {
       display: table;
       opacity: 0;
-      min-height: 500px;
+      min-height: 736px; /*was 500 */
       z-index: 9; }
       #colorlib-hero .flexslider .slider-text > .slider-text-inner {
         display: table-cell;
         vertical-align: middle;
-        min-height: 700px;
+        min-height: 736px; /*was 700 */
         padding: 2em;
         position: relative; }
         #colorlib-hero .flexslider .slider-text > .slider-text-inner .desc {
