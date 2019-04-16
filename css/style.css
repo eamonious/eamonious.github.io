@@ -275,7 +275,7 @@ figure {
         background-position: top left;
         min-height: 400px;
         position: relative; }
-      
+
 
     #colorlib-hero .flexslider .flex-control-nav {
       bottom: 20px;
@@ -355,7 +355,13 @@ figure {
           font-size: 50px; }
           @media screen and (max-width: 768px) {
             #colorlib-hero .flexslider .slider-text > .slider-text-inner .heading-section {
-              font-size: 30px; } }
+              font-size: 30px; }
+            #colorlib-hero .flexslider .slider-text > .slider-text-inner h1 {
+                font-size: 48px;
+                font-weight: 600; }
+            #colorlib-hero .flexslider .slider-text > .slider-text-inner h2 {
+                font-size: 24px;
+                font-weight: 300; }
         #colorlib-hero .flexslider .slider-text > .slider-text-inner s
 
         /*  INDEX SLIDER ORIGINAL STYLING
